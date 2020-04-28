@@ -2,10 +2,12 @@ package Package1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class selectd extends JPanel implements ActionListener{
@@ -54,10 +56,16 @@ public class selectd extends JPanel implements ActionListener{
 		 a=(int)this.annee.getSelectedItem();
 		else if (e.getSource()==this.afficher)
 		{
-			String d=this.toString();
-			if(tab.contains(d))
-				
+			String m=this.toString();
+			LocalDate d=LocalDate.parse(m);// modefier le type du m en un LocalDate
+			LocalDate[] tab= datesdonnees();
+			if(tab.contains(d)) //si la date est trouvee on affiche la fenetre avec les données du date d 
+				InterfaceTunisie T = new InterfaceTunisie(d);
 			else 
+			{
+				JLabel l=new JLabel("la date choisie est erronée !!");//sinon il ronvoie un msg d'erreur
+				this.add(l);
+			}	
 				
 		}
 	}
