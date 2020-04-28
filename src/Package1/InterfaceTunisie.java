@@ -44,7 +44,7 @@ import javax.swing.SwingConstants;
 public class InterfaceTunisie extends JFrame {
 	public static void main(String[] args)
 	{
-		InterfaceTunisie tn=new InterfaceTunisie("C:\\maps\\tunisie.jpg");
+		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png");
 		
 		
 		tn.setExtendedState(tn.MAXIMIZED_BOTH);
@@ -195,7 +195,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button1.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tunis.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tunis.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -203,7 +203,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button2.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\ariana.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ariana.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -211,7 +211,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button3.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\manouba.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\manouba.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -219,7 +219,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button4.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\ben arous.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ben arous.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -227,7 +227,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button5.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\bizerte.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\bizerte.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -235,7 +235,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button6.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\jendouba.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\jendouba.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -243,7 +243,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button7.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\beja.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\beja.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -251,7 +251,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button8.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kassrine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kassrine.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -259,7 +259,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button9.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\zaghouan.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\zaghouan.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -267,7 +267,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button10.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kairouan.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kairouan.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -275,7 +275,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button11.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sidi bou zid.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sidi bou zid.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -283,7 +283,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button12.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sousse.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sousse.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -291,7 +291,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button13.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mounastir.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mounastir.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -299,7 +299,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button14.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mahdia.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mahdia.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -307,7 +307,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button15.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sfax.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sfax.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -315,7 +315,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button16.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\gabes.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gabes.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -323,7 +323,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button17.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mednine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mednine.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -331,7 +331,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button18.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tozeur.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tozeur.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -339,7 +339,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button19.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kebili.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kebili.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -347,7 +347,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button20.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\gafsa.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gafsa.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -355,7 +355,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button21.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\nabel.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\nabel.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -363,7 +363,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button22.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tataouine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -371,7 +371,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button23.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kef.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kef.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -379,7 +379,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button24.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\siliana.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\siliana.png");
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
