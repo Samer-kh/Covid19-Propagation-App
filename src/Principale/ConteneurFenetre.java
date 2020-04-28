@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.Date;
-
+import java.util.Vector;
+import java.time.LocalDate;
+import java.util.*;
 public class ConteneurFenetre extends JPanel  { 
 	public  File f = new File("test.txt");
 	public ConteneurFenetre()
@@ -15,7 +17,7 @@ public class ConteneurFenetre extends JPanel  {
 		//	bouton.setSize(50, 30);
 		//	bouton.setBounds(30, 50, 90, 20);
 		   // bouton.addActionListener(this );
-		    this.add(bouton);	
+		    this.add(bouton,BorderLayout.SOUTH);	
 		
 	}
 	public void ajouterChampsText()
@@ -46,7 +48,7 @@ public class ConteneurFenetre extends JPanel  {
 		
 		 
 	}
-	public void ajouterBoutonAvecTextàuneDate(String[][] obj)
+/*	public void ajouterBoutonAvecTextàuneDate(String[][] obj)
 	{  JComboBox jour;
 	 JComboBox mois;
 	 JComboBox annee;
@@ -63,9 +65,30 @@ public class ConteneurFenetre extends JPanel  {
 		 champs.reglageBoutonAvecText();
 		
 		 
+	}*/
+	public void modifier() {
+		 LocalDate[] l=new LocalDate[12];                //pour tester
+		 int j=0;                                           //pour tester
+		 for(int i=1;i<=12;i++)                           //pour tester
+		 { l[j]=LocalDate.of(2020+i,i,i);j++;}           //pour tester
+		Modification champs=new Modification(l);        // il faut appeller le fonction de gestion de donnée qui renvoie une tab des dates disponibles
+		 ajouterTitre("donner le nom du gouvernorat");
+		 this.add(champs.GouvernoratSaisie);
+		 ajouterTitre("donner le nombre du décés");
+		 this.add(champs.nombreDécésSaisie);
+		 ajouterTitre("donner le nombre des inféctés");
+		 this.add(champs.nombreInféctéSaisie);
+		 ajouterTitre("donner le nombre des Rétablis");
+		 this.add(champs.nombreRetablisSaisie);
+		 this.add(champs.bouton);
+		 this.add(champs.jour);
+		 this.add(champs.mois);
+		 this.add(champs.annee);
+		 champs.reglage(l);
+
 	}
 }
-//utiliser s'il y a ajout
+//cs sont 3 textField commander par un boutton //il faut faire l'appel à la methode 
 class BoutonAvecText  {
  JButton bouton;
  JComboBox GouvernoratSaisie;
@@ -79,7 +102,9 @@ class BoutonAvecText  {
  JComboBox datesPossibles;
 
 public BoutonAvecText()
-{String[] regions= {"Tunis","Monastir","Sousse","Mahdia","Nabeul"};
+{String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
+		"Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana"
+		,"Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
 	bouton=new JButton("Valider");
 	GouvernoratSaisie=new JComboBox(regions);
 	nombreDécésSaisie=new TextField();
@@ -96,56 +121,105 @@ public void reglageBoutonAvecText()//throws MyException
 		  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
 		 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
 		 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
-		// System.out.println(nomGouvernorat+" "+nombreDécés);
+		
 		 }
 		 
 		 });
 	  
 	}
-public String toString(Object obj ) {
-	String ch=obj.toString();
-	return ch+"hello";
-	
-}
-public void ajouterZoneDate(Date[] table)
-{
-	JComboBox datesPossibles=new JComboBox(table);
-		
-}
-
 
 }
-class MyException extends Exception{}
-
 class Modification extends BoutonAvecText{
 	JComboBox jour;
 	 JComboBox mois;
 	 JComboBox annee;
-	 public Modification(String[][] obj ) {
-		 String[] regions= {"Tunis","Monastir","Sousse","Mahdia","Nabeul"};
-		bouton=new JButton("Valider");
-		GouvernoratSaisie=new JComboBox(regions);
-		nombreDécésSaisie=new TextField();
-		nombreInféctéSaisie=new TextField();
-		nombreRetablisSaisie=new TextField();
+	 public Modification(LocalDate[] obj ) {
+		 String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
+					"Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana"
+					,"Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
+				bouton=new JButton("Valider");
+				GouvernoratSaisie=new JComboBox(regions);
+				nombreDécésSaisie=new TextField();
+				nombreInféctéSaisie=new TextField();
+				nombreRetablisSaisie=new TextField();
+		 int anneeActuelle=obj[(obj.length)-1].getYear();
+		 Vector vecteur=new Vector();
+		 for(int j=2020;j<=anneeActuelle;j++)
+			 vecteur.add(j);
+		 annee=new JComboBox(vecteur);
+		 Vector vecteur1=new Vector();
+		 for(int i=1;i<=12;i++)
+			vecteur1.add(i) ;
+		 mois=new JComboBox(vecteur1);
+		 Vector vecteur2=new Vector();
+		 for(int i=1;i<=31;i++)
+			 vecteur2.add(i) ;
+		 jour=new JComboBox(vecteur2);
+		 
+		 
 	 }
-public void reglageBoutonAvecText() {
+public void reglage(LocalDate[] obj) {
+	bouton.addActionListener(new ActionListener()
+	 {public void actionPerformed(ActionEvent evt) {
 	
-}
-public String[][] dateSéparé (String[][] obj)
-{ String [] jour;
- 	}
-	 
-}
-//public void textValueChanged(TextEvent txt) {
-//      Object source = txt.getSource();
-//    TextField  x=(TextField)source;
-//    String t=text.getText();
-//text.addActionListener(this);
+	 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
+	  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
+	 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
+	 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
+	 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
+	 int j=Integer.parseInt(jour.getSelectedItem().toString());
+	 int m =Integer.parseInt(mois.getSelectedItem().toString());
+	 int a=Integer.parseInt(annee.getSelectedItem().toString());	
+	 if (estAvant(j,m,a,obj[0]))
+	 {	  String x=obj[0].toString();
+	  JOptionPane d = new JOptionPane();
+	  d.showMessageDialog( new JFrame() , "Date erronée! \n veuiller choisir une date après:"+x,
+	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	  else
+	  { if (estApres(j,m,a,obj[obj.length-1]))
+	  {	  String x=obj[obj.length-1].toString();
+	  JOptionPane d = new JOptionPane();
+	  d.showMessageDialog( new JFrame() , "Date erronée! \n veuiller choisir une date avant:"+x,
+	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	  else
+		  if (!estPresent(obj, LocalDate.of(a,m,j) ))
+		  {  JOptionPane d = new JOptionPane();
+	  d.showMessageDialog( new JFrame() , "Date introuvable",
+	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	//	  else 
+		//	 donneesSaisies  // dans le else il faut appeller le methode qui enregistre les données de la classe gestionDonnée
+	  }}});}	
 
-//nomGouvernorat=GouvernoratSaisie.getText();
-		// if (ch!="")
-			// nomGouvernorat=ch;
-	//	 else 
-		//	 throw new MyException();
+public static boolean estPresent(LocalDate[] obj,LocalDate element)
+{ boolean ch=Arrays.asList(obj).contains(element);
+	/*for (int i=0;i<obj.length;i++)
+	   {if(!obj[i].equals(null))
+	      {if  (obj[i].toString().equals(element.toString()))
+		     {ch=true;break ;
+             }
+	      }
+
+       }*/
+	return ch;}
+public static boolean estAvant(int j,int m,int a,LocalDate obj)  
+{ boolean test=false;
+	if(LocalDate.of(a,m,j).isBefore(obj))
+	test=true;
+	return test;
+	}
+public static boolean estApres(int j,int m,int a,LocalDate obj)  
+{ boolean test=false;
+	if(LocalDate.of(a,m,j).isAfter(obj))
+	test=true;
+	return test;
+	}}
+
+
+
+ class manipulationDesDates{
+ LocalDate date;
+ public manipulationDesDates()
+ {}
+	 }
+
   
