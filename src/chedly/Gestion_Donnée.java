@@ -1,5 +1,4 @@
 package chedly;
-import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -8,13 +7,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class Gestion_Donnée {
-	File fichier;
-	String gouvernorat[] = {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili","Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana","Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
-	
-	Gestion_Donnée(File F)
-	{
-		fichier=F;
-	}
 	public static int[] lecturedonnées(String ville , LocalDate date) throws IOException // Lire les données d'un gouvernorat (Cas total , Cas guéris , Décès)
 	{
 		String ligne;
@@ -89,6 +81,7 @@ public class Gestion_Donnée {
 			tab[i]=date;
 			i++;
 		}
+		in.close();
 		return tab;
 	}	
 }
