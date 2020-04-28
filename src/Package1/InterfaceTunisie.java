@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
@@ -38,17 +39,21 @@ import javax.swing.SwingConstants;
 
 
 
+
+
 public class InterfaceTunisie extends JFrame {
 	public static void main(String[] args)
 	{
-		InterfaceTunisie tn=new InterfaceTunisie();
+		InterfaceTunisie tn=new InterfaceTunisie("C:\\maps\\tunisie.jpg");
+		
+		
 		tn.setExtendedState(tn.MAXIMIZED_BOTH);
 		tn.setVisible(true);
 		
 	}
-	public InterfaceTunisie()
+	public InterfaceTunisie(String MyImage)
 	{
-	
+	//Creation des boutons represantant les gouvernerats
 	JButton Button = new JButton("juste pour marquer");
 	
 	JButton Button1=new JButton("Tunis");
@@ -76,6 +81,7 @@ public class InterfaceTunisie extends JFrame {
 	JButton Button23=new JButton("Kef");
 	JButton Button24=new JButton("Sileana");
 	
+	//creation des parties du page
 	
 	setSize(400,400);
 	JPanel Panel1=new JPanel();
@@ -88,7 +94,9 @@ public class InterfaceTunisie extends JFrame {
 	
 	
 	
-
+	//splitting the page
+	
+	
 	JTextArea area=new JTextArea();
 	Panel2.add(area);
 	Panel2.setLayout(new FlowLayout());
@@ -100,19 +108,16 @@ public class InterfaceTunisie extends JFrame {
 	JSplitPane sl = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,ScrollD , sl2);
 
 	
-	// ImageIcon icon = createImageIcon("images/Cat.gif");
-    // SizeDisplayer sd1 = new SizeDisplayer("left", icon);
-    // sd1.setMinimumSize(new Dimension(30,30));
+
 	
 	
 	
 	Scrolldata.setMaximumSize(new Dimension(0,40));
-	sl3.setResizeWeight(0.75);
+	sl3.setResizeWeight(0.5);
 	sl2.setResizeWeight(0.95);
-	ScrollD.setPreferredSize(new Dimension(250,0));
-	//Scrolldata.setPreferredSize(new Dimension(0,150));
-	//sl3.setPreferredSize(new Dimension(200,0));
-
+	sl.setResizeWeight(0.2);
+	//ScrollD.setPreferredSize(new Dimension(200,0));
+	//ScrollD.setMaximumSize(new Dimension(200,0));
 	add(sl);
 	
 	
@@ -146,6 +151,8 @@ public class InterfaceTunisie extends JFrame {
 	Panel1.add(Button23);
 	Panel1.add(Button24);
 	
+	//creation des labels donnant les informations et leur mise en page
+	
 	GridLayout gl2=new GridLayout(1,3);
 	JLabel nbcas = new JLabel("le nombre des cas est :");
 	JLabel nbdeces = new JLabel("le nombre des déces est :");
@@ -167,38 +174,228 @@ public class InterfaceTunisie extends JFrame {
 	Panel3.add(nbdeces);
 	Panel3.add(nbgueris);
 	
+	//importation des cartes
+	
 	BufferedImage myPicture=null;
 	
 	try {
-	    myPicture = ImageIO.read(new File("C:\\maps\\tunisie.jpg"));
+	    myPicture = ImageIO.read(new File(MyImage));
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	
 	ImageIcon image = new ImageIcon(myPicture);
 	JLabel imageLabel= new JLabel(image);
+	//imageLabel.setPreferredSize(new Dimension(600,600));
+	
 	JScrollPane ImageScroll=new JScrollPane(imageLabel);
+	
 	Panel2.add(ImageScroll);
 	
 	Button1.addActionListener(ae -> 
-	{BufferedImage myPictur=null;
-		try {
-		    myPictur = ImageIO.read(new File("C:\\maps\\tunis.jpg"));
-		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
-		ImageIcon image1 = new ImageIcon(myPictur);
-		JLabel imageLabel1= new JLabel(image1);
-		JScrollPane ImageScroll1=new JScrollPane(imageLabel1);
-		Panel2.remove(ImageScroll); 
-		Panel2.repaint(); 
-		Panel2.add(ImageScroll1);
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tunis.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
 	});
+	
+	Button2.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\ariana.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button3.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\manouba.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button4.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\ben arous.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button5.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\bizerte.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button6.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\jendouba.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button7.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\beja.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button8.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kassrine.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button9.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\zaghouan.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button10.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kairouan.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button11.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sidi bou zid.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button12.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sousse.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button13.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mounastir.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button14.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mahdia.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button15.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\sfax.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button16.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\gabes.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button17.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\mednine.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button18.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tozeur.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button19.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kebili.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button20.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\gafsa.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button21.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\nabel.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button22.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\tataouine.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button23.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\kef.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	Button24.addActionListener(ae -> 
+	{	this.dispose();
+	    InterfaceTunisie Tn=new InterfaceTunisie("C:\\maps\\siliana.png");
+		Tn.setVisible(true);
+		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+		
+	});
+	
+	
+	
+	
+	
 		
 		
-	}
-}
+	}}
+	
+
+
+	
 /*
 class ImagePanel extends JPanel{
 private BufferedImage image;
