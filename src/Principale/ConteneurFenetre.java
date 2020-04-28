@@ -3,21 +3,22 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.Date;
-import java.util.Vector;
+//import java.util.Date;
+//import java.util.Vector;
 import java.time.LocalDate;
 import java.util.*;
 public class ConteneurFenetre extends JPanel  { 
 	public  File f = new File("test.txt");
 	public ConteneurFenetre()
 		{ super(); }
+	   // this.setLayout(new GridLayout(3,3));}
 	public void ajouterBoutton(JButton bouton)
 	{    
 			//JButton bouton= new JButton(nomBouton);
 		//	bouton.setSize(50, 30);
 		//	bouton.setBounds(30, 50, 90, 20);
 		   // bouton.addActionListener(this );
-		    this.add(bouton,BorderLayout.SOUTH);	
+		    this.add(bouton);	
 		
 	}
 	public void ajouterChampsText()
@@ -67,7 +68,7 @@ public class ConteneurFenetre extends JPanel  {
 		 
 	}*/
 	public void modifier() {
-		 LocalDate[] l=new LocalDate[12];                //pour tester
+		 LocalDate[] l=new LocalDate[19];                //pour tester
 		 int j=0;                                           //pour tester
 		 for(int i=1;i<=12;i++)                           //pour tester
 		 { l[j]=LocalDate.of(2020+i,i,i);j++;}           //pour tester
@@ -134,30 +135,32 @@ class Modification extends BoutonAvecText{
 	 JComboBox mois;
 	 JComboBox annee;
 	 public Modification(LocalDate[] obj ) {
-		 String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
+	 String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
 					"Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana"
 					,"Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
-				bouton=new JButton("Valider");
-				GouvernoratSaisie=new JComboBox(regions);
-				nombreDécésSaisie=new TextField();
-				nombreInféctéSaisie=new TextField();
-				nombreRetablisSaisie=new TextField();
-		 int anneeActuelle=obj[(obj.length)-1].getYear();
-		 Vector vecteur=new Vector();
-		 for(int j=2020;j<=anneeActuelle;j++)
-			 vecteur.add(j);
-		 annee=new JComboBox(vecteur);
-		 Vector vecteur1=new Vector();
-		 for(int i=1;i<=12;i++)
-			vecteur1.add(i) ;
-		 mois=new JComboBox(vecteur1);
-		 Vector vecteur2=new Vector();
-		 for(int i=1;i<=31;i++)
+	bouton=new JButton("Valider");
+	GouvernoratSaisie=new JComboBox(regions);
+	nombreDécésSaisie=new TextField();
+	nombreInféctéSaisie=new TextField();
+	nombreRetablisSaisie=new TextField();
+	 int anneeActuelle=obj[indice(obj)].getYear();
+	 Vector vecteur=new Vector();
+	 for(int j=2020;j<=anneeActuelle;j++)
+     	 vecteur.add(j);
+	 annee=new JComboBox(vecteur);
+	 Vector vecteur1=new Vector();
+	 for(int i=1;i<=12;i++)
+		vecteur1.add(i) ;
+	 mois=new JComboBox(vecteur1);
+	 Vector vecteur2=new Vector();
+	 for(int i=1;i<=31;i++)
 			 vecteur2.add(i) ;
-		 jour=new JComboBox(vecteur2);
+	jour=new JComboBox(vecteur2);
 		 
 		 
 	 }
+	
+	 
 public void reglage(LocalDate[] obj) {
 	bouton.addActionListener(new ActionListener()
 	 {public void actionPerformed(ActionEvent evt) {
@@ -176,8 +179,8 @@ public void reglage(LocalDate[] obj) {
 	  d.showMessageDialog( new JFrame() , "Date erronée! \n veuiller choisir une date après:"+x,
 	        "Warning",JOptionPane.WARNING_MESSAGE);}
 	  else
-	  { if (estApres(j,m,a,obj[obj.length-1]))
-	  {	  String x=obj[obj.length-1].toString();
+	  { if (estApres(j,m,a,obj[indice(obj)]))
+	  {	  String x=obj[indice(obj)].toString();
 	  JOptionPane d = new JOptionPane();
 	  d.showMessageDialog( new JFrame() , "Date erronée! \n veuiller choisir une date avant:"+x,
 	        "Warning",JOptionPane.WARNING_MESSAGE);}
@@ -188,8 +191,16 @@ public void reglage(LocalDate[] obj) {
 	        "Warning",JOptionPane.WARNING_MESSAGE);}
 	//	  else 
 		//	 donneesSaisies  // dans le else il faut appeller le methode qui enregistre les données de la classe gestionDonnée
-	  }}});}	
-
+	  }}});}
+//methode qui retourne la derniere date (la valeur non null d'un tableau
+public int indice(LocalDate[] obj) {
+	int i;
+	 for (i=obj.length-1;i>=0;i--)
+	 { if(obj[i]!=null)
+	 {break;}
+	 }return i;
+	 }
+// methode qui vérifier si une date est présente dans un tableau ou nn
 public static boolean estPresent(LocalDate[] obj,LocalDate element)
 { boolean ch=Arrays.asList(obj).contains(element);
 	/*for (int i=0;i<obj.length;i++)
@@ -214,12 +225,5 @@ public static boolean estApres(int j,int m,int a,LocalDate obj)
 	return test;
 	}}
 
-
-
- class manipulationDesDates{
- LocalDate date;
- public manipulationDesDates()
- {}
-	 }
 
   

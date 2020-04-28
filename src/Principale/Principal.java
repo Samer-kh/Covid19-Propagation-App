@@ -20,38 +20,41 @@ class Fenetre extends JFrame   implements ActionListener{
 	JButton importer;
 	JButton ajouter;
     JButton modifier;
-    JButton supprimer;
+  //  JButton supprimer;
 	public Fenetre() {
 		super();
 		importer= new JButton("importer un fichier");
 		ajouter= new JButton("Ajouter");
 		modifier= new JButton("Modifier");
-		supprimer= new JButton("Supprimer");
+	//	supprimer= new JButton("Supprimer");
 		 contenu.ajouterBoutton(importer);
 		    contenu.ajouterBoutton(ajouter);
-		    contenu.ajouterBoutton(supprimer);
+		   // contenu.ajouterBoutton(supprimer);
 		    contenu.ajouterBoutton(modifier);
 		    ajouter.addActionListener(this);
 		    modifier.addActionListener(this);
-		    supprimer.addActionListener(this);
+		//    supprimer.addActionListener(this);
 		this.setSize(1000, 1000);
 		this.setTitle("Interface Administrateur");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
+	    GridLayout c=new GridLayout(3,3);
+	 //   this.setLayout(manager);
+	  //  this.setLayout(null);
 	    this.setVisible(true);
 	    this.setResizable(true);
 	    this.setContentPane(contenu);
 	  //  JMenuBar menuBar = new JMenuBar();
 	 //   this.contenu.add(menuBar);
 	  //  menuBar.setBounds(0, 0, 1000, 40);
-	   this.contenu.setLayout(new BorderLayout());
-	   BarreDeMenu();
-	 
+	//   this.contenu.setLayout(new BorderLayout());
+	  // BarreDeMenu();
+	   // this.contenu.setLayout(null);
 	    
 	}
 	
 	public void actionPerformed(ActionEvent evenement) {
-				this.remove(supprimer);
+				//this.remove(supprimer);
 				this.remove(ajouter);
 				this.remove(importer);
 				this.remove(modifier);
@@ -60,11 +63,11 @@ class Fenetre extends JFrame   implements ActionListener{
 				else
 					if(evenement.getSource()==modifier)
 						contenu.modifier();
-					else
-	                       if(evenement.getSource()==supprimer)
-		contenu.modifier();
+				//	else
+	             //          if(evenement.getSource()==supprimer)
+		//contenu.modifier();
 				}
-	public void BarreDeMenu() {
+/*	public void BarreDeMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu1 = new JMenu("Menu");
 		JMenuItem ajoute = new JMenuItem("ajouter");
@@ -79,7 +82,7 @@ class Fenetre extends JFrame   implements ActionListener{
 		
 		
 		
-	}
+	}*/
 }
 
 
