@@ -17,6 +17,8 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -28,6 +30,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,14 +47,16 @@ import javax.swing.SwingConstants;
 public class InterfaceTunisie extends JFrame {
 	public static void main(String[] args)
 	{
-		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png");
+		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true);
 		
 		
 		tn.setExtendedState(tn.MAXIMIZED_BOTH);
 		tn.setVisible(true);
 		
 	}
-	public InterfaceTunisie(String MyImage)
+	
+	
+	public InterfaceTunisie(String MyImage,boolean ok)
 	{
 	//Creation des boutons represantant les gouvernerats
 	JButton Button = new JButton("juste pour marquer");
@@ -106,14 +111,30 @@ public class InterfaceTunisie extends JFrame {
 	JSplitPane sl2=new JSplitPane(JSplitPane.VERTICAL_SPLIT,sl3,Scrolldata);
 	
 	JSplitPane sl = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,ScrollD , sl2);
-
 	
-
+	
+	//remplissage du Panel 4
+	if (ok==true)
+	{
+	Panel4.setLayout(new FlowLayout());
+	JLabel Titre = new JLabel("<html><font size='6' color=blue>Titre du Description<br><br></html>");
+	JLabel Description= new JLabel("<html><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea <br> commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit <br> esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, <br> sunt in culpa qui officia deserunt mollit anim id est laborum<br><br></strong></html>\r\n");
+	//JLabel Description_Cal =new JLabel("<html><font size='6' color=blue>Titre du date<br><br><br><br></html>");
+	Description.setHorizontalAlignment(JLabel.CENTER);
+	Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
+	Description.setFont(new Font("ComicSansMs",Font.PLAIN,16));
+	
+	selectd Calendrier = new selectd();
+	Panel4.add(Titre);
+	Panel4.add(Description);
+	//Panel4.add(Description_Cal);
+	Panel4.add(Calendrier);
+	}
 	
 	
 	
 	Scrolldata.setMaximumSize(new Dimension(0,40));
-	sl3.setResizeWeight(0.5);
+	sl3.setResizeWeight(0.46);
 	sl2.setResizeWeight(0.95);
 	sl.setResizeWeight(0.2);
 	//ScrollD.setPreferredSize(new Dimension(200,0));
@@ -154,9 +175,9 @@ public class InterfaceTunisie extends JFrame {
 	//creation des labels donnant les informations et leur mise en page
 	
 	GridLayout gl2=new GridLayout(1,3);
-	JLabel nbcas = new JLabel("le nombre des cas est :");
-	JLabel nbdeces = new JLabel("le nombre des déces est :");
-	JLabel nbgueris = new JLabel("le nombre des guéris est :");
+	JLabel nbcas = new JLabel("le nombre des cas est : 999");
+	JLabel nbdeces = new JLabel("le nombre des déces est : 999");
+	JLabel nbgueris = new JLabel("le nombre des guéris est : 999");
 	
 	nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
 	nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -173,6 +194,18 @@ public class InterfaceTunisie extends JFrame {
 	Panel3.add(nbcas,BorderLayout.CENTER);
 	Panel3.add(nbdeces);
 	Panel3.add(nbgueris);
+
+	/*if(ok==false)
+	{
+	JPanel PanelInter=new JPanel();
+	JButton acceuil=new JButton("retour à l'acceuil");
+	acceuil.setPreferredSize(new Dimension(10,10));
+	PanelInter.setLayout(new BorderLayout());
+	acceuil.setPreferredSize(new Dimension(50,50));
+	acceuil.setMaximumSize(new Dimension(50,50));
+	PanelInter.add(acceuil);
+	Panel3.add(PanelInter);
+	}*/
 	
 	//importation des cartes
 	
@@ -195,7 +228,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button1.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tunis.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tunis.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -203,7 +236,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button2.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ariana.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ariana.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -211,7 +244,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button3.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\manouba.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\manouba.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -219,7 +252,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button4.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ben arous.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ben arous.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -227,7 +260,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button5.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\bizerte.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\bizerte.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -235,7 +268,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button6.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\jendouba.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\jendouba.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -243,7 +276,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button7.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\beja.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\beja.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -251,7 +284,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button8.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kassrine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kassrine.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -259,7 +292,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button9.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\zaghouan.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\zaghouan.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -267,7 +300,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button10.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kairouan.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kairouan.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -275,7 +308,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button11.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sidi bou zid.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sidi bou zid.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -283,7 +316,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button12.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sousse.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sousse.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -291,7 +324,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button13.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mounastir.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mounastir.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -299,7 +332,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button14.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mahdia.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mahdia.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -307,7 +340,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button15.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sfax.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sfax.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -315,7 +348,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button16.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gabes.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gabes.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -323,7 +356,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button17.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mednine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mednine.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -331,7 +364,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button18.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tozeur.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tozeur.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -339,7 +372,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button19.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kebili.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kebili.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -347,7 +380,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button20.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gafsa.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\gafsa.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -355,7 +388,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button21.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\nabel.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\nabel.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -363,7 +396,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button22.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -371,7 +404,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button23.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kef.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kef.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -379,13 +412,13 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button24.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\siliana.png");
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\siliana.png",false);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
 	});
 	
-	
+
 	
 	
 	
@@ -393,7 +426,74 @@ public class InterfaceTunisie extends JFrame {
 		
 	}}
 	
+ class selectd extends JPanel implements ActionListener{
+	
+	public JComboBox<String> mars;//liste de selection des mois 
+	public JComboBox<Integer> jours;//liste de selection des jours 
+	public JComboBox<Integer> annee;//liste de selection des années 
+	public JButton afficher ;
+	public String m; //le mois sélèctioné par l'utilisateur
+	public int j;//le jour sélèctionné par l'utilisateur
+	public int a;// l'année sélèctionné par l'utilisateur
+	
+	public selectd()
+	{
+		super();
+		 
+		Object[] elt2 = new Object[] {01,02,03,04,05,06,07, 8 , 9, 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,29,30,31};
+		 jours= new JComboBox(elt2);
+		jours.setBounds(300, 20, 70, 35);
+		this.add(jours);
+		Object[] elt1= new Object[] {"mars","avril","mai","juin"};
+		 mars=new JComboBox(elt1);
+		mars.setBounds(300, 20, 70, 35);
+		this.add(mars);
+		Object[] elt3  =new Object[] {2020,2021};
+		 annee= new JComboBox(elt3);
+		annee.setBounds(300, 20, 70, 35);
+		this.add(annee);
+		afficher=new JButton("afficher");
+		afficher.setBounds(400, 20, 70, 35);
+		this.add(afficher);
+		this.afficher.addActionListener(this);
+		this.mars.addActionListener(this);//action spécifique à la JComboBox mars pour la récuperation du mois sélèctionné
+		this.jours.addActionListener(this);//action spécifique à la JComboBox jours pour la récuperation du jour sélèctionné
+		this.annee.addActionListener(this);//action spécifique à la JComboBox annee pour la récuperation de l'année sélèctionné
+	}
 
+	//@Override
+	/*public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==this.mars)
+		   m= (String) this.mars.getSelectedItem();
+		else if (e.getSource()==this.jours)
+		 j=(int)this.jours.getSelectedItem();
+		else if (e.getSource()==this.annee)
+		 a=(int)this.annee.getSelectedItem();
+		else if (e.getSource()==this.afficher)
+		{
+			String m=this.toString();
+			LocalDate d=LocalDate.parse(m);// modefier le type du m en un LocalDate
+			LocalDate[] tab= datesdonnees();
+			if(tab.contains(d)) //si la date est trouvee on affiche la fenetre avec les données du date d 
+				InterfaceTunisie T = new InterfaceTunisie(d);
+			else 
+			{
+				JLabel l=new JLabel("la date choisie est erronée !!");//sinon il ronvoie un msg d'erreur
+				this.add(l);
+			}	
+				
+		}
+	}
+
+	@Override
+	public String toString() {
+		return (""+a+"-"+m+"-"+""+j );
+	}*/
+	
+	
+
+}
 
 	
 /*
