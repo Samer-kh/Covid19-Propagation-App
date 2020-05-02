@@ -1,5 +1,5 @@
 package Package1;
-
+import  chedly.* ;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -58,8 +58,9 @@ public class selectd extends JPanel implements ActionListener{
 		{
 			String m=this.toString();
 			LocalDate d=LocalDate.parse(m);// modefier le type du m en un LocalDate
-			LocalDate[] tab= datesdonnees();
-			if(tab.contains(d)) //si la date est trouvee on affiche la fenetre avec les données du date d 
+			LocalDate[] tab= Gestion_Donnée.datesdonnées();
+			
+			if(verif(d,tab)) //si la date est trouvee on affiche la fenetre avec les données du date d 
 				InterfaceTunisie T = new InterfaceTunisie(d);
 			else 
 			{
@@ -69,7 +70,22 @@ public class selectd extends JPanel implements ActionListener{
 				
 		}
 	}
-
+	public boolean verif(LocalDate d , LocalDate[] tab) // verifier si la date est dans le tableau ou non
+	{	int i=0;
+		do 
+		{
+			if(tab[i]!=d)
+				i++;
+			else 
+				break;
+		}
+		while(i<=tab.length);
+		if(i<=tab.length)
+			return true;
+		else 
+			return false;
+	}
+	
 	@Override
 	public String toString() {
 		return (""+a+"-"+m+"-"+""+j );
