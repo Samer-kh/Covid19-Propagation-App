@@ -64,7 +64,7 @@ public class selectd extends JPanel implements ActionListener{
 				InterfaceTunisie T = new InterfaceTunisie(d);
 			else 
 			{
-				JLabel l=new JLabel("la date choisie est erronée !!");//sinon il ronvoie un msg d'erreur
+				JLabel l=new JLabel("la date choisie est erronée !!");//sinon il affiche un msg d'erreur
 				this.add(l);
 			}	
 				
