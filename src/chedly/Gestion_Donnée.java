@@ -57,7 +57,7 @@ public class Gestion_Donnée {
 		}
 		return tab; // Retourne le tableau
 	}	
-	public static void modifierdonnées (LocalDate date , int cas , int deces , int gueris , String ville) throws IOException // Prend les paramétres suivants pour modifier les données dans une ville
+	public static void modifierdonnées (LocalDate date , int cas , int gueris , int deces , String ville) throws IOException // Prend les paramétres suivants pour modifier les données dans une ville
 	{
 		String ligne;
 		String res;
@@ -72,8 +72,8 @@ public class Gestion_Donnée {
 			if (date.equals(d))
 				{
 				donnée[1]=Integer.toString(cas);
-				donnée[2]=Integer.toString(deces);
-				donnée[3]=Integer.toString(gueris);
+				donnée[2]=Integer.toString(gueris);
+				donnée[3]=Integer.toString(deces);
 				res=String.join(" ", donnée);
 				list.add(res);
 				}
