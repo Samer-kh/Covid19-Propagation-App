@@ -1,8 +1,12 @@
 package Principale;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+
 import java.awt.event.*;
+import java.io.File;
 import java.time.LocalDate;
+
 //import java.util.Arrays;
 ///import java.util.Vector;
 import java.util.*;
@@ -10,8 +14,8 @@ public class Principal {
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	// Fenetre fen=new Fenetre();
-      LogIn i=new LogIn ();
+	 //Fenetre fen=new Fenetre();
+     LogIn i=new LogIn ();
        
 	}
 
@@ -26,7 +30,9 @@ class Fenetre extends JFrame
 	  private JButton modifier = new JButton("Modifier");
 	public  Fenetre() {
 		super();
-	
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   this.setTitle("Interface Administrateur");
+	   //bouton d'ajout 
 		ajouter.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent e){
 		    	  ajouterOnglet("Ajouter des données");
@@ -34,10 +40,29 @@ class Fenetre extends JFrame
 		      }
 		 
 		    });
+		//bouton de modification
 		modifier.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent e){
 		    	  ajouterr("Modifier des données");
 		 
+		      }
+		    });
+		//bouton d'importation
+		importer.addActionListener(new ActionListener(){
+		      public void actionPerformed(ActionEvent e){
+		    		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+		    		int returnValue = jfc.showOpenDialog(null);
+		    		// int returnValue = jfc.showSaveDialog(null);
+
+		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
+		    			File selectedFile = jfc.getSelectedFile();
+		    			System.out.println(selectedFile.getAbsolutePath());
+		    		//appel à la methode de la classe gestion des donnees qui prend le chemin du fichier et fait l'ajout des donnees contenu dans ce fichier
+		    	
+		    			Gestion_Donnée.ajoutdonnéeschemin(selectedFile.getAbsolutePath());
+		    	
+		    	}
 		      }
 		 
 		    });
@@ -80,6 +105,8 @@ class Fenetre extends JFrame
 		 int j=0;                                           //pour tester
 		 for(int i=1;i<=12;i++)                           //pour tester
 		 { l[j]=LocalDate.of(2020+i,i,i);j++;}
+	/*  LocalDate l;
+	  l=Gestion_Donnée.datesdonnées();*/
 	  final FenetreModifier contenuOnglet = new FenetreModifier(l);
 		   JPanel Onglet = new JPanel();
 		   Onglet.setOpaque(false);
@@ -113,9 +140,9 @@ int nombreDécés;
 int nombreInfécté;
 int nombreRetablis;
 public FenetreAjouter()
-{String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
-		"Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana"
-		,"Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
+{String[] regions= {"Ariana","Beja","BenArous","Bizerte","Gabes","Gafsa","Jendouba",
+		"Kairouan","Kasserine","Kebili","Kef","Mahdia","Manouba","Medenine",
+		"Monastir","Nabeul","Sfax","SidiBouzid","Siliana","Tataouine","Sousse","Tozeur","Tunis","Zaghouan"};
 	bouton=new JButton("Valider");
 	GouvernoratSaisie=new JComboBox(regions);
 	nombreDécésSaisie=new TextField();
@@ -147,7 +174,8 @@ public void reglageBoutonAvecText()//throws MyException
 		  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
 		 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
 		 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
-		
+		 //Gestion_Donnée.remplirfichier( nomGouvernorat ,nombreInfécté , nombreDécés ,  nombreRetablis);
+		 
 		 }
 		 
 		 });
@@ -214,17 +242,19 @@ class FenetreModifier extends JPanel{
 	 this.add(mois);
 	 this.add(annee);
 	 this.add(bouton);
+	 
 	 reglage(obj);
-		 
-		 
+	
+	 
 	 }
 	
 	 
-public void reglage(LocalDate[] obj) {
+public void reglage(LocalDate[] obj) 
+{
 	bouton.addActionListener(new ActionListener()
 	 {public void actionPerformed(ActionEvent evt) {
-	
-	 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
+	if((nombreDécésSaisie.getText()!=null)&&(nombreInféctéSaisie.getText()!=null) &&(nombreRetablisSaisie.getText()!=null))
+	{ nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
 	  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
 	 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
 	 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
@@ -247,10 +277,17 @@ public void reglage(LocalDate[] obj) {
 		  if (!estPresent(obj, LocalDate.of(a,m,j) ))
 		  {  JOptionPane d = new JOptionPane();
 	  d.showMessageDialog( new JFrame() , "Date introuvable",
-	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	        "Warning",JOptionPane.WARNING_MESSAGE);};
 	//	  else 
-		//	 donneesSaisies  // dans le else il faut appeller le methode qui enregistre les données de la classe gestionDonnée
-	  }}});}
+	    /*   LocalDate date=LocalDate.of(a,m,j);
+	        Gestion_Donnée.modifierdonnées ( date , nombreInfécté , nombreDécés ,  nombreRetablis , nomGouvernorat);*/
+	  }}
+	//else
+		//throw new MyException();//; ex.messageErreur();}
+	
+	 }});}
+
+		
 
 //methode qui retourne la derniere date (la valeur non null d'un tableau
 public int indice(LocalDate[] obj) {
@@ -280,6 +317,15 @@ public static boolean estApres(int j,int m,int a,LocalDate obj)
 	return test;
 	}}
 
+class MyException extends Exception {
+	public MyException() {super();
+
+//public void messageErreur() {
+		JOptionPane d = new JOptionPane();
+		  d.showMessageDialog( new JFrame() , "Tous les champs doivent  être remplis !",
+		        "Warning",JOptionPane.WARNING_MESSAGE);
+	}
+}
 
 
 
