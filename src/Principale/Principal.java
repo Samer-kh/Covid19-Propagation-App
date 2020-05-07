@@ -2,6 +2,8 @@ package Principale;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+import java.io.IOException;
+import chedly.Gestion_Donnée;
 
 import java.awt.event.*;
 import java.io.File;
@@ -57,10 +59,12 @@ class Fenetre extends JFrame
 
 		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    			File selectedFile = jfc.getSelectedFile();
-		    			System.out.println(selectedFile.getAbsolutePath());
+		    		//	System.out.println(selectedFile.getAbsolutePath());
 		    		//appel à la methode de la classe gestion des donnees qui prend le chemin du fichier et fait l'ajout des donnees contenu dans ce fichier
-		    	
-		    			Gestion_Donnée.ajoutdonnéeschemin(selectedFile.getAbsolutePath());
+		    	try
+		    			{Gestion_Donnée.ajoutdonnéeschemin(selectedFile.getAbsolutePath());}
+		      catch(IOException evt)
+		      {System.out.println(selectedFile.getAbsolutePath());}
 		    	
 		    	}
 		      }
@@ -105,8 +109,11 @@ class Fenetre extends JFrame
 		 int j=0;                                           //pour tester
 		 for(int i=1;i<=12;i++)                           //pour tester
 		 { l[j]=LocalDate.of(2020+i,i,i);j++;}
-	/*  LocalDate l;
-	  l=Gestion_Donnée.datesdonnées();*/
+	  LocalDate[] TableauDesDates;
+	  try 
+	  {TableauDesDates=Gestion_Donnée.datesdonnées();}
+	  catch(IOException evt)
+	  {System.out.println("exception");}
 	  final FenetreModifier contenuOnglet = new FenetreModifier(l);
 		   JPanel Onglet = new JPanel();
 		   Onglet.setOpaque(false);
