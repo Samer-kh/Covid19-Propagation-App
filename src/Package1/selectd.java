@@ -62,6 +62,7 @@ public class selectd extends JPanel implements ActionListener{
 			
 			if(verif(d,tab)) //si la date est trouvee on affiche la fenetre avec les données du date d 
 				InterfaceTunisie T = new InterfaceTunisie(d);
+				//à changer avec les parametres de interface tunisie 
 			else 
 			{
 				JLabel l=new JLabel("la date choisie est erronée !!");//sinon il affiche un msg d'erreur
