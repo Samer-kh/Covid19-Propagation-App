@@ -3,37 +3,23 @@ package Package1;
 
 
 
-import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +27,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import chedly.Gestion_Donnée;
 
 
 
@@ -50,18 +41,22 @@ import javax.swing.SwingConstants;
 public class InterfaceTunisie extends JFrame {
 	public static void main(String[] args)
 	{
+		
+		try {
 		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",false,0,0,0);
 		
 		
 		tn.setExtendedState(tn.MAXIMIZED_BOTH);
 		tn.setVisible(true);
-		
+		}
+		catch(Exception e)
+		{e.printStackTrace();}
 	}
 	
 	// constructeur de l'interface tunisie contenant les infos générales (acceuil )
 	
 	
-	public InterfaceTunisie(String MyImage,boolean ok,int cas,int gueris,int deces)
+	public InterfaceTunisie(String MyImage,boolean ok,int cas,int gueris,int deces) throws Exception
 	{
 	//Creation des boutons represantant les gouvernerats
 		// les boutons qui vont occuper la partie gauche de l'ecran
@@ -132,7 +127,15 @@ public class InterfaceTunisie extends JFrame {
 				Description.setHorizontalAlignment(JLabel.CENTER);
 				Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
 				Description.setFont(new Font("ComicSansMs",Font.PLAIN,16));
-				
+				Properties p = new Properties();
+				p.put("text.today", "Today");
+				p.put("text.month", "Month");
+				p.put("text.year", "Year");
+				UtilDateModel model = new UtilDateModel();
+				JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
+				JDatePickerImpl datePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter());
+				 
+				Panel4.add(datePicker);
 				selectd Calendrier = new selectd();
 				Panel4.add(Titre);
 				Panel4.add(Description);
@@ -190,14 +193,18 @@ public class InterfaceTunisie extends JFrame {
 				GridLayout gl2=new GridLayout(1,4);
 				if (ok==false)
 						{
+					
 				int TableauDonnées[]=Gestion_Donnée.lecturetunisie ();
+					
 				int CaseCas=TableauDonnées[0];
 				int CaseGueris=TableauDonnées[1];
 				int CaseDéces=TableauDonnées[2];
-				
+					
+					
 				JLabel nbcas = new JLabel("le nombre des cas est :" + CaseCas);
 				JLabel nbdeces = new JLabel("le nombre des déces est :" + CaseGueris);
 				JLabel nbgueris = new JLabel("le nombre des guéris est :" + CaseDéces);
+					
 				nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
 				nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
 				nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -212,8 +219,8 @@ public class InterfaceTunisie extends JFrame {
 				Panel3.setLayout(gl2);
 				Panel3.add(nbcas,BorderLayout.CENTER);
 				Panel3.add(nbdeces);
-				Panel3.add(nbgueris);
-						}
+				Panel3.add(nbgueris);}
+						
 				else
 				{
 					JLabel nbcas = new JLabel("le nombre des cas est :" + cas);
@@ -457,8 +464,8 @@ public class InterfaceTunisie extends JFrame {
 	//creation du Panel Gouvernerat qui sera remplit dans l'interface contenant les infos
 	//sur les gouvernerats
 	
-public void creer_gouv(JPanel Panel,String nom,LocalDate date)
-		{
+public void creer_gouv(JPanel Panel,String nom,LocalDate date) 
+		{	try {
 			GridLayout GP=new GridLayout(5,1);
 			if (date==null)
 			{
@@ -539,7 +546,9 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 				Panel.add(scrollpane);
 				Panel.add(Ligne);
 				Panel.add(Calendrier);
-			}
+			}}
+		catch(Exception e)
+		{}
 	
 }
 
@@ -550,6 +559,7 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 public InterfaceTunisie(String MyImage, boolean ok,String nom_gouvernerat ,LocalDate date) {
 //Creation des boutons represantant les gouvernerats
 	// les boutons qui vont occuper la partie gauche de l'ecran
+		
 			JButton Button = new JButton("juste pour marquer");
 			
 			JButton Button1=new JButton("Ariana");
@@ -812,7 +822,7 @@ if (nom_gouvernerat=="zaghouan")
 //ajout des labels contenant le nbr totals des cas 
 //lecture des GestionDonnées 
 //mise en forme des Labels 
-
+	try {
 			GridLayout gl2=new GridLayout(1,4);
 			int TableauDonnées[]=Gestion_Donnée.lecturetunisie ();
 			int CaseCas=TableauDonnées[0];
@@ -837,7 +847,9 @@ if (nom_gouvernerat=="zaghouan")
 			Panel3.add(nbcas,BorderLayout.CENTER);
 			Panel3.add(nbdeces);
 			Panel3.add(nbgueris);
-
+	}
+	catch(Exception e)
+	{}
 
 
 //ajout d'un bouton qui permet le retour a l'acceuil
@@ -855,12 +867,16 @@ if (nom_gouvernerat=="zaghouan")
 			Panel2.setLayout(FL);
 			PanelInter.add(acceuil);
 			Panel2.add(PanelInter,BorderLayout.SOUTH);
+			
 			acceuil.addActionListener(ae -> 
-			{	this.dispose();
+			{	try {
+				this.dispose();
 			    InterfaceTunisie Tn=new InterfaceTunisie("maps\\Tunisie.png",false,0,0,0);
 				Tn.setVisible(true);
 				Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
-				
+			}
+			catch(Exception e)
+			{}
 			});
 
 
@@ -1103,7 +1119,7 @@ Button24.addActionListener(ae ->
 		 jours= new JComboBox(elt2);
 		jours.setBounds(300, 20, 70, 35);
 		this.add(jours);
-		Object[] elt1= new Object[] {"mars","avril","mai","juin"};
+		Object[] elt1= new Object[] {"03","04","05","06"};
 		 mars=new JComboBox(elt1);
 		mars.setBounds(300, 20, 70, 35);
 		this.add(mars);
@@ -1113,6 +1129,17 @@ Button24.addActionListener(ae ->
 		this.add(annee);
 		afficher=new JButton("afficher");
 		afficher.setBounds(400, 20, 70, 35);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		afficher.addActionListener(ae->
 		{
@@ -1149,7 +1176,7 @@ Button24.addActionListener(ae ->
 		 jours= new JComboBox(elt2);
 		jours.setBounds(300, 20, 70, 35);
 		this.add(jours);
-		Object[] elt1= new Object[] {"mars","avril","mai","juin"};
+		Object[] elt1= new Object[] {"03","04","05","06"};
 		 mars=new JComboBox(elt1);
 		mars.setBounds(300, 20, 70, 35);
 		this.add(mars);
@@ -1168,15 +1195,19 @@ Button24.addActionListener(ae ->
 			String TabInter[]= {ans,mois,jour};
 			String resultat=String.join("-",TabInter);
 			LocalDate Date=LocalDate.parse(resultat);
+			try {
 			int tabDon[]=Gestion_Donnée.lecturetunisie (Date);
 			int NbCas=tabDon[0];
 			int NbGueris=tabDon[1]; 
 			int NbDeces=tabDon[2];
 			
+			
 			InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true,NbCas,NbGueris,NbDeces);
 			tn.setExtendedState(tn.MAXIMIZED_BOTH);
 			tn.setVisible(true);
-			
+			}
+			catch(Exception e)
+			{}
 			
 
 			
