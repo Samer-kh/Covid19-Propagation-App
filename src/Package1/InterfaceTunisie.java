@@ -17,7 +17,6 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -31,10 +30,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
 import chedly.Gestion_Donnée;
 
 
@@ -46,7 +41,7 @@ public class InterfaceTunisie extends JFrame {
 	{
 		
 		try {
-		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",false,0,0,0);
+		InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",false,0,0,0,null);
 		
 		
 		tn.setExtendedState(tn.MAXIMIZED_BOTH);
@@ -59,11 +54,11 @@ public class InterfaceTunisie extends JFrame {
 	// constructeur de l'interface tunisie contenant les infos générales (acceuil )
 	
 	
-	public InterfaceTunisie(String MyImage,boolean ok,int cas,int gueris,int deces) throws Exception
+	public InterfaceTunisie(String MyImage,boolean ok,int cas,int gueris,int deces, LocalDate date) throws Exception
 	{
 	//Creation des boutons represantant les gouvernerats
 		// les boutons qui vont occuper la partie gauche de l'ecran
-				JButton Button = new JButton("juste pour marquer");
+				
 				
 				JButton Button1=new JButton("Ariana");
 				JButton Button2=new JButton("Bizerte");
@@ -99,9 +94,6 @@ public class InterfaceTunisie extends JFrame {
 				JPanel Panel2=new JPanel();
 				JPanel Panel3=new JPanel();
 				JPanel Panel4=new JPanel();
-				JPanel Panel5=new JPanel();
-				JPanel Panel6=new JPanel();
-				JPanel Panel7=new JPanel();
 	
 	
 	
@@ -120,55 +112,11 @@ public class InterfaceTunisie extends JFrame {
 	
 	
 	//remplissage du Panel 4
-	//ce remplisage est celui de l'acceuil			
+	//ce remplisage est celui de l'acceuil	en utilisant la methode acceuil_Panel		
 				
 				
-				Panel4.setLayout(new FlowLayout());
-				JLabel Titre = new JLabel("<html><font size='6' color=blue>Titre du Description<br><br></html>");
-				JLabel Description= new JLabel("<html><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea <br> commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit <br> esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, <br> sunt in culpa qui officia deserunt mollit anim id est laborum<br><br></strong></html>\r\n");
-				//JLabel Description_Cal =new JLabel("<html><font size='6' color=blue>Titre du date<br><br><br><br></html>");
-				Description.setHorizontalAlignment(JLabel.CENTER);
-				Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
-				Description.setFont(new Font("ComicSansMs",Font.PLAIN,16));
-				/*Properties p = new Properties();
-				p.put("text.today", "Today");
-				p.put("text.month", "Month");
-				p.put("text.year", "Year");
-				UtilDateModel model = new UtilDateModel();
-				JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
-				JDatePickerImpl datePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter());
-				 JLabel LabelDes=new JLabel("<html><b>Choisir la date afin de visualiser ses informations : <br></b></html>");
-				 LabelDes.setFont(new Font("ComicSansMs",Font.PLAIN,16));
-				 JButton BoutonSubmit=new JButton("Submit");
-				 BoutonSubmit.addActionListener(ae -> 
-				 {	Date selectedDate = (Date) datePicker.getModel().getValue();
-				    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				    String reportDate = df.format(selectedDate);
-				    LocalDate ldate=LocalDate.parse(reportDate);
-					try {
-					 int tableau[]=Gestion_Donnée.lecturetunisie (ldate);
-					 int nbCas=tableau[0];
-					 int nbG=tableau[1];
-					 int nbD=tableau[2];
-					 this.dispose();
-					 InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",false,nbCas,nbG,nbD);
-					 tn.setVisible(true);
-					 tn.setExtendedState(tn.MAXIMIZED_BOTH);
-						}
-					catch ( Exception e)
-					{e.printStackTrace();}
-					
-						 
-						 
-				 });*/
-				selectd Calendrier = new selectd(this);
-				Panel4.add(Titre);
-				Panel4.add(Description);
-				//Panel4.add(Description_Cal);
-				//Panel4.add(LabelDes);
-				Panel4.add(Calendrier);
-				//Panel4.add(datePicker);
-				//Panel4.add(BoutonSubmit);
+	acceuil_Panel(Panel4,date);				
+				
 	
 	// mettre les ratios se chaque panel 
 		//mise en forme de l'interface général
@@ -177,8 +125,7 @@ public class InterfaceTunisie extends JFrame {
 				sl3.setResizeWeight(0.46);
 				sl2.setResizeWeight(0.95);
 				sl.setResizeWeight(0.2);
-				//ScrollD.setPreferredSize(new Dimension(200,0));
-				//ScrollD.setMaximumSize(new Dimension(200,0));
+				
 				add(sl);
 				show();
 				
@@ -217,57 +164,16 @@ public class InterfaceTunisie extends JFrame {
 	//lecture des GestionDonnées 
 	//mise en forme des Labels 
 	
-				GridLayout gl2=new GridLayout(1,4);
+				
 				if (ok==false)
 						{
 					
-				int TableauDonnées[]=Gestion_Donnée.lecturetunisie ();
-					
-				int CaseCas=TableauDonnées[0];
-				int CaseGueris=TableauDonnées[1];
-				int CaseDéces=TableauDonnées[2];
-					
-					
-				JLabel nbcas = new JLabel("le nombre des cas est :" + CaseCas);
-				JLabel nbdeces = new JLabel("le nombre des déces est :" + CaseGueris);
-				JLabel nbgueris = new JLabel("le nombre des guéris est :" + CaseDéces);
-					
-				nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
-				nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
-				nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
-				
-				Font font = new Font("Serif", Font.ITALIC, 24);
-				nbcas.setFont(font);
-				nbgueris.setFont(font);
-				nbdeces.setFont(font);
-				nbcas.setForeground(Color.blue);
-				nbgueris.setForeground(Color.green);
-				nbdeces.setForeground(Color.red);
-				Panel3.setLayout(gl2);
-				Panel3.add(nbcas,BorderLayout.CENTER);
-				Panel3.add(nbdeces);
-				Panel3.add(nbgueris);}
+					Ajout_cas_total(Panel3 );
 						
+						}
 				else
 				{
-					JLabel nbcas = new JLabel("le nombre des cas est :" + cas);
-					JLabel nbdeces = new JLabel("le nombre des déces est :" + gueris);
-					JLabel nbgueris = new JLabel("le nombre des guéris est :" + deces);
-					nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
-					nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
-					nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
-					
-					Font font = new Font("Serif", Font.ITALIC, 24);
-					nbcas.setFont(font);
-					nbgueris.setFont(font);
-					nbdeces.setFont(font);
-					nbcas.setForeground(Color.blue);
-					nbgueris.setForeground(Color.green);
-					nbdeces.setForeground(Color.red);
-					Panel3.setLayout(gl2);
-					Panel3.add(nbcas,BorderLayout.CENTER);
-					Panel3.add(nbdeces);
-					Panel3.add(nbgueris);
+					ajout_cas_total_dateMarque(Panel3,cas,gueris,deces);
 				}
 				
 				
@@ -275,22 +181,9 @@ public class InterfaceTunisie extends JFrame {
 	
 	//importation des cartes
 	
-					BufferedImage myPicture=null;
-					
-					try {
-					    myPicture = ImageIO.read(new File(MyImage));
-					} catch (IOException e) {
-					    // TODO Auto-generated catch block
-					    e.printStackTrace();
-					}
-					
-					ImageIcon image = new ImageIcon(myPicture);
-					JLabel imageLabel= new JLabel(image);
-					//imageLabel.setPreferredSize(new Dimension(600,600));
-					
-					JScrollPane ImageScroll=new JScrollPane(imageLabel);
-					
-					Panel2.add(ImageScroll);
+				import_image(MyImage,Panel2);
+				
+	//réglage des actions des boutouns qui permet de naviguer entre les interfaces et les differentes Frames
 	
 	Button1.addActionListener(ae -> 
 	{	this.dispose();
@@ -310,7 +203,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button3.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\ben arous.png",true,"BenArous",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\BenArous.png",true,"BenArous",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -350,7 +243,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button8.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\kassrine.png",true,"Kasserine",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\Kasserine.png",true,"Kasserine",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 	});
@@ -396,7 +289,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button14.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mednine.png",true,"Medenine",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\medenine.png",true,"Medenine",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -404,7 +297,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button15.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\mounastir.png",true,"Monastir",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\monastir.png",true,"Monastir",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -412,7 +305,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button16.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\nabel.png",true,"Nabeul",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\nabeul.png",true,"Nabeul",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -428,7 +321,7 @@ public class InterfaceTunisie extends JFrame {
 	
 	Button18.addActionListener(ae -> 
 	{	this.dispose();
-	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sidi bou zid.png",true,"SidiBouZid",null);
+	    InterfaceTunisie Tn=new InterfaceTunisie("maps\\sidibouzid.png",true,"SidiBouZid",null);
 		Tn.setVisible(true);
 		Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 		
@@ -488,11 +381,61 @@ public class InterfaceTunisie extends JFrame {
 	}
 	
 	
+	//methode qui permet de remplir la panel droite de l'interface acceuil 
+	
+public void acceuil_Panel(JPanel Panel4,LocalDate date) 
+
+{
+				Panel4.setLayout(new FlowLayout());
+				JLabel Titre = new JLabel("<html><font size='6' color=blue><br>La propagation  de la pandémie en Tunisie<br><br></html>",JLabel.CENTER);
+				JLabel Description= new JLabel("<html><strong>Voici Notre Application Java, c'est une application qui vous permet de vous informer a propos <br> du propagation du covid,<br> elle détaille le nombre de cas , de personnes guéris <br>et de personnes déces en  affectant les cas selon les gouvernerats  <br>Elle vous permet aussi de connaitre de nombre de cas des jours précédents <br> Si vous avez des quetions n'hésitez pas à contacter le support <br> Stay Safe <br><br></strong></html>\r\n",JLabel.CENTER);
+				Description.setHorizontalAlignment(JLabel.CENTER);
+				Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
+				Description.setFont(new Font("ComicSansMs",Font.PLAIN,16));
+				
+				selectd Calendrier = new selectd(this);
+				
+				if (date==null)
+				{
+					Date DateC = new Date(System.currentTimeMillis()); // Date actuelle
+					String SDateC=DateC.toString();
+					
+					JLabel DataCour=new JLabel ("<html><br>Les infos affichées correspand à la date :"+ SDateC+"<br><br></html>",JLabel.CENTER);
+					DataCour.setForeground(Color.RED);
+					DataCour.setFont(new Font("ComicSansMs",Font.BOLD,18));
+					
+					
+					Panel4.setPreferredSize(new Dimension(600,0));
+					Panel4.add(Titre);
+					Panel4.add(Description);
+					Panel4.add(DataCour,JLabel.BOTTOM_ALIGNMENT);
+					Panel4.add(Calendrier);
+					
+				}
+				else
+				{	String SDateC=date.toString();
+					JLabel DataCour=new JLabel ("<html><br>Les infos affichées correspand à la date :"+ SDateC+"<br><br></html>",JLabel.CENTER);
+					DataCour.setForeground(Color.RED);
+					DataCour.setFont(new Font("ComicSansMs",Font.BOLD,18));
+					
+					
+					Panel4.setPreferredSize(new Dimension(600,0));
+					Panel4.add(Titre);
+					Panel4.add(Description);
+					Panel4.add(DataCour,JLabel.BOTTOM_ALIGNMENT);
+					Panel4.add(Calendrier);
+					
+	}
+
+}
+	
+	
 	//creation du Panel Gouvernerat qui sera remplit dans l'interface contenant les infos
 	//sur les gouvernerats
 	
 public void creer_gouv(JPanel Panel,String nom,LocalDate date) 
-		{	try {
+		{	
+			try {
 			GridLayout GP=new GridLayout(5,1);
 			if (date==null)
 			{
@@ -505,25 +448,19 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 			JLabel Titre = new JLabel("<html><b>Gouvernerat :"+ nom +"</b><br><br></html>");
 			Titre.setHorizontalAlignment(JLabel.CENTER);
 			Titre.setFont(new Font("ComicSansMs",Font.BOLD,30));	
-			//Panel.setBackground(new Color(140,200,226));
 			String[] col_name= {"nombre total de cas confirmés","nombre total de cas guéris","nombre total des décès"};
 			Object[][] row= { {"<html><font size='6' color=blue > Cas confirmés</html>","<html><font size='6' color=green> Cas guéris </html>","<html><font size='6' color=red> Décés </html>"},{nbCasG,nbGuerisG,nbDecesG}};
 			JTable tab=new JTable(row,col_name);
 			JScrollPane scrollpane = new JScrollPane(tab);
 			Titre.setForeground(new Color(20,148,20));
-			//tab.setPreferredSize(new Dimension(0,250));
-			//tab.setBackground(new Color(140,200,226));
-			//col_name.setBackground(new Color(140,200,226));
 			tab.setMaximumSize(new Dimension(0,50));
 			tab.setRowHeight(55);
 			//tab.getColumn(0).setWidth(100);
 			tab.setBackground(new Color(224,224,224));
 			tab.setFont(new Font("ComicSansMs",Font.BOLD,26));
-			//tab.setBorder(BorderFactory.createLineBorder(Color.red)); 
 			selectd Calendrier = new selectd(nom,"maps//"+nom+".png",this);
 			
-			JScrollPane Scroll_Calender=new JScrollPane(Calendrier);
-			JLabel Ligne = new JLabel("<html><b>Choissir une date si vous voulez connaitre le nombre des cas :</b> </html> ");
+			JLabel Ligne = new JLabel("<html><b>Choissir une date si vous voulez connaitre le nombre des cas :</b> </html> ",JLabel.CENTER);
 			Ligne.setFont(new Font("ComicSansMs",Font.BOLD,22));
 			Ligne.setForeground(Color.blue);
 			Ligne.setBackground(new Color(140,200,226));
@@ -533,6 +470,12 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 			Panel.add(scrollpane);
 			Panel.add(Ligne);
 			Panel.add(Calendrier);
+			Date DateC = new Date(System.currentTimeMillis()); // Date actuelle
+			JLabel LabelDateCourante=new JLabel("Les Infos affichées correspand à la date :" + DateC,JLabel.CENTER);
+			LabelDateCourante.setForeground(Color.RED);
+			LabelDateCourante.setFont(new Font("ComicSansMs",Font.BOLD,18));
+			
+			Panel.add(LabelDateCourante);
 			}
 			else 
 			{
@@ -545,24 +488,25 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 				JLabel Titre = new JLabel("<html><b>Gouvernerat :"+ nom +"</b><br><br></html>");
 				Titre.setHorizontalAlignment(JLabel.CENTER);
 				Titre.setFont(new Font("ComicSansMs",Font.BOLD,30));	
-				//Panel.setBackground(new Color(140,200,226));
 				String[] col_name= {"nombre total de cas confirmés","nombre total de cas guéris","nombre total des décès"};
 				Object[][] row= { {"<html><font size='6' color=blue > Cas confirmés</html>","<html><font size='6' color=green> Cas guéris </html>","<html><font size='6' color=red> Décés </html>"},{nbCasG,nbGuerisG,nbDecesG}};
 				JTable tab=new JTable(row,col_name);
 				JScrollPane scrollpane = new JScrollPane(tab);
 				Titre.setForeground(new Color(20,148,20));
-				//tab.setPreferredSize(new Dimension(0,250));
-				//tab.setBackground(new Color(140,200,226));
-				//col_name.setBackground(new Color(140,200,226));
 				tab.setMaximumSize(new Dimension(0,50));
 				tab.setRowHeight(55);
-				//tab.getColumn(0).setWidth(100);
 				tab.setBackground(new Color(224,224,224));
 				tab.setFont(new Font("ComicSansMs",Font.BOLD,26));
-				//tab.setBorder(BorderFactory.createLineBorder(Color.red));
 				selectd Calendrier = new selectd(nom,"maps//"+nom+".png",this);
+				String DateCourante=null;
+				DateCourante=date.toString();
 				
-				JScrollPane Scroll_Calender=new JScrollPane(Calendrier);
+				
+				JLabel DateC=new JLabel("Les Infos affichées correspand à la date suivante :"+ DateCourante,JLabel.CENTER);
+				DateC.setForeground(Color.RED);
+				DateC.setFont(new Font("ComicSansMs",Font.BOLD,18));
+				
+				
 				JLabel Ligne = new JLabel("<html><b>Choissir une date si vous voulez connaitre le nombre des cas :</b> </html> ");
 				Ligne.setFont(new Font("ComicSansMs",Font.BOLD,22));
 				Ligne.setForeground(Color.blue);
@@ -573,6 +517,7 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 				Panel.add(scrollpane);
 				Panel.add(Ligne);
 				Panel.add(Calendrier);
+				Panel.add(DateC);
 			}
 		
 		}
@@ -581,15 +526,127 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 	
 }
 
+//ajout du bouton qui permet le retour à l'acceuil 
+
+public void ajout_bouton_acceuil(JPanel Panel2)
+{
+						BorderLayout FL = new BorderLayout();
+					JPanel PanelInter=new JPanel();
+					JButton acceuil=new JButton("retour à l'acceuil");
+					PanelInter.setLayout(new BorderLayout());
+					acceuil.setSize(120, 100);
+					Panel2.setLayout(FL);
+					PanelInter.add(acceuil);
+					Panel2.add(PanelInter,BorderLayout.SOUTH);
+					
+					acceuil.addActionListener(ae -> 
+					{	try {
+						this.dispose();
+					    InterfaceTunisie Tn=new InterfaceTunisie("maps\\Tunisie.png",false,0,0,0,null);
+						Tn.setVisible(true);
+						Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
+					}
+					catch(Exception e)
+					{}
+					});
+
+}
+
+//ajout des stats : les stats du LocalDate courant 
+
+public void Ajout_cas_total(JPanel Panel3)
+{
+			try {
+				GridLayout gl2=new GridLayout(1,4);
+				int TableauDonnées[]=Gestion_Donnée.lecturetunisie ();
+				int CaseCas=TableauDonnées[0];
+				int CaseGueris=TableauDonnées[1];
+				int CaseDéces=TableauDonnées[2];
+				
+				JLabel nbcas = new JLabel("le nombre des cas est :" + CaseCas);
+				JLabel nbdeces = new JLabel("le nombre des déces est :" + CaseGueris);
+				JLabel nbgueris = new JLabel("le nombre des guéris est :" + CaseDéces);
+				nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
+				nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
+				nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
+				
+				Font font = new Font("Serif", Font.ITALIC, 24);
+				nbcas.setFont(font);
+				nbgueris.setFont(font);
+				nbdeces.setFont(font);
+				nbcas.setForeground(Color.blue);
+				nbgueris.setForeground(new Color(20,148,20));
+				nbdeces.setForeground(Color.red);
+				Panel3.setLayout(gl2);
+				Panel3.add(nbcas,BorderLayout.CENTER);
+				Panel3.add(nbdeces);
+				Panel3.add(nbgueris);
+		}
+		catch(Exception e)
+		{}
+	
+}
+
+//ajout ls stats : LocalDate determiner par l'utilisateur
+
+public void ajout_cas_total_dateMarque(JPanel Panel3, int cas,int gueris,int deces)
+{
+			GridLayout gl2=new GridLayout(1,4);
+			JLabel nbcas = new JLabel("le nombre des cas est :" + cas);
+			JLabel nbdeces = new JLabel("le nombre des déces est :" + gueris);
+			JLabel nbgueris = new JLabel("le nombre des guéris est :" + deces);
+			nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
+			nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
+			nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
+			
+			Font font = new Font("Serif", Font.ITALIC, 24);
+			nbcas.setFont(font);
+			nbgueris.setFont(font);
+			nbdeces.setFont(font);
+			nbcas.setForeground(Color.blue);
+			nbgueris.setForeground(new Color(20,148,20));
+			nbdeces.setForeground(Color.red);
+			Panel3.setLayout(gl2);
+			Panel3.add(nbcas,BorderLayout.CENTER);
+			Panel3.add(nbdeces);
+			Panel3.add(nbgueris);
+}
+
+//permet l'ajout des catres 
+
+public void import_image(String MyImage,JPanel Panel2)
+{
+				BufferedImage myPicture=null;
+				
+				try {
+				    myPicture = ImageIO.read(new File(MyImage));
+				} catch (IOException e) {
+				    e.printStackTrace();
+				}
+				
+				ImageIcon image = new ImageIcon(myPicture);
+				JLabel imageLabel= new JLabel(image);
+				
+				JScrollPane ImageScroll=new JScrollPane(imageLabel);
+				
+				Panel2.add(ImageScroll);
+	
+}
+
+
+
+
 
 
 // constructeur de l'interface tunisie qui contient les information des gouvernerats
 
+
 public InterfaceTunisie(String MyImage, boolean ok,String nom_gouvernerat ,LocalDate date) {
-//Creation des boutons represantant les gouvernerats
+
+	
+	//Creation des boutons represantant les gouvernerats
 	// les boutons qui vont occuper la partie gauche de l'ecran
 		
-			JButton Button = new JButton("juste pour marquer");
 			
 			JButton Button1=new JButton("Ariana");
 			JButton Button2=new JButton("Bizerte");
@@ -625,9 +682,6 @@ public InterfaceTunisie(String MyImage, boolean ok,String nom_gouvernerat ,Local
 			JPanel Panel2=new JPanel();
 			JPanel Panel3=new JPanel();
 			JPanel Panel4=new JPanel();
-			JPanel Panel5=new JPanel();
-			JPanel Panel6=new JPanel();
-			JPanel Panel7=new JPanel();
 
 
 
@@ -654,8 +708,6 @@ public InterfaceTunisie(String MyImage, boolean ok,String nom_gouvernerat ,Local
 			sl3.setResizeWeight(0.46);
 			sl2.setResizeWeight(0.95);
 			sl.setResizeWeight(0.2);
-			//ScrollD.setPreferredSize(new Dimension(200,0));
-			//ScrollD.setMaximumSize(new Dimension(200,0));
 			add(sl);
 			show();
 			
@@ -692,7 +744,7 @@ public InterfaceTunisie(String MyImage, boolean ok,String nom_gouvernerat ,Local
 //creation des labels donnant les informations et leur mise en page
 
 // chaque label suivant le gouvernerat
-
+			
 
 
 
@@ -748,20 +800,20 @@ if (nom_gouvernerat=="Kairouan")
 	creer_gouv(Panel4,"Kairouan",date)	;		
 }
 
-if (nom_gouvernerat=="kasserine")
+if (nom_gouvernerat=="Kasserine")
 	
 {
 	creer_gouv(Panel4,"Kasserine",date)	;
 }
 
 
-if (nom_gouvernerat=="kebili")
+if (nom_gouvernerat=="Kebili")
 	
 {
 	creer_gouv(Panel4,"Kebili",date)	;
 }
 
-if (nom_gouvernerat=="kef")
+if (nom_gouvernerat=="Kef")
 	
 {
 	creer_gouv(Panel4,"Kef",date)	;
@@ -821,10 +873,10 @@ if (nom_gouvernerat=="Sousse")
 	creer_gouv(Panel4,"Sousse",date)	;
 }
 
-if (nom_gouvernerat=="Tataouin")
+if (nom_gouvernerat=="Tataouine")
 	
 {
-	creer_gouv(Panel4,"Tataouin",date)	;
+	creer_gouv(Panel4,"Tataouine",date)	;
 }
 
 if (nom_gouvernerat=="Tozeur")
@@ -848,87 +900,24 @@ if (nom_gouvernerat=="Zaghouan")
 
 
 
-//ajout des labels contenant le nbr totals des cas 
+//ajout des labels contenant le nbr totals des cas  en utilisant la methode ajout_cas_total
 //lecture des GestionDonnées 
 //mise en forme des Labels 
-	try {
-			GridLayout gl2=new GridLayout(1,4);
-			int TableauDonnées[]=Gestion_Donnée.lecturetunisie ();
-			int CaseCas=TableauDonnées[0];
-			int CaseGueris=TableauDonnées[1];
-			int CaseDéces=TableauDonnées[2];
-			
-			JLabel nbcas = new JLabel("le nombre des cas est :" + CaseCas);
-			JLabel nbdeces = new JLabel("le nombre des déces est :" + CaseGueris);
-			JLabel nbgueris = new JLabel("le nombre des guéris est :" + CaseDéces);
-			nbcas.setFont(new java.awt.Font("Dialog", 1, 18));
-			nbgueris.setFont(new java.awt.Font("Dialog", 1, 18));
-			nbdeces.setFont(new java.awt.Font("Dialog", 1, 18));
-			
-			Font font = new Font("Serif", Font.ITALIC, 24);
-			nbcas.setFont(font);
-			nbgueris.setFont(font);
-			nbdeces.setFont(font);
-			nbcas.setForeground(Color.blue);
-			nbgueris.setForeground(Color.green);
-			nbdeces.setForeground(Color.red);
-			Panel3.setLayout(gl2);
-			Panel3.add(nbcas,BorderLayout.CENTER);
-			Panel3.add(nbdeces);
-			Panel3.add(nbgueris);
-	}
-	catch(Exception e)
-	{}
+	
+Ajout_cas_total(Panel3);
 
-
-//ajout d'un bouton qui permet le retour a l'acceuil
+//ajout d'un bouton qui permet le retour a l'acceuil utlisant la methode ajout_bouton_acceuil
 
 
 
-				BorderLayout FL = new BorderLayout();
-			JPanel PanelInter=new JPanel();
-			JButton acceuil=new JButton("retour à l'acceuil");
-			//acceuil.setPreferredSize(new Dimension(10,10));
-			PanelInter.setLayout(new BorderLayout());
-			//acceuil.setPreferredSize(new Dimension(50,50));
-			//acceuil.setMaximumSize(new Dimension(50,50));
-			acceuil.setSize(120, 100);
-			Panel2.setLayout(FL);
-			PanelInter.add(acceuil);
-			Panel2.add(PanelInter,BorderLayout.SOUTH);
-			
-			acceuil.addActionListener(ae -> 
-			{	try {
-				this.dispose();
-			    InterfaceTunisie Tn=new InterfaceTunisie("maps\\Tunisie.png",false,0,0,0);
-				Tn.setVisible(true);
-				Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
-			}
-			catch(Exception e)
-			{}
-			});
-
+ajout_bouton_acceuil(Panel2);
 
 
 
 //importation des cartes
 
-BufferedImage myPicture=null;
+import_image(MyImage,Panel2);
 
-try {
-    myPicture = ImageIO.read(new File(MyImage));
-} catch (IOException e) {
-    // TODO Auto-generated catch block
-    e.printStackTrace();
-}
-
-ImageIcon image = new ImageIcon(myPicture);
-JLabel imageLabel= new JLabel(image);
-//imageLabel.setPreferredSize(new Dimension(600,600));
-
-JScrollPane ImageScroll=new JScrollPane(imageLabel);
-
-Panel2.add(ImageScroll);
 
 Button1.addActionListener(ae -> 
 {	this.dispose();
@@ -1208,12 +1197,7 @@ Button24.addActionListener(ae ->
 			String ans=annee.getSelectedItem().toString();
 			String mois=mars.getSelectedItem().toString();
 			String jour=jours.getSelectedItem().toString();
-			int jourInt=Integer.parseInt(jour);
-			if ((0<=jourInt)&&(jourInt<=9))
-			{
-				jour="0" + jour;
-				
-			}
+		
 			String TabInter[]= {ans,mois,jour};
 			String resultat=String.join("-",TabInter);
 			LocalDate Date=LocalDate.parse(resultat);
@@ -1224,7 +1208,7 @@ Button24.addActionListener(ae ->
 			int NbDeces=tabDon[2];
 			
 			Frame.dispose();
-			InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true,NbCas,NbGueris,NbDeces);
+			InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true,NbCas,NbGueris,NbDeces,Date);
 			tn.setExtendedState(tn.MAXIMIZED_BOTH);
 			tn.setVisible(true);
 			}
