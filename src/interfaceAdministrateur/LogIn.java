@@ -3,10 +3,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-
+//la fenetre du connexion
 public class LogIn extends JFrame implements ActionListener {
 	String administrateur="admin";
-	String adminPassword="administrateur";
+	String adminPassword="admin";
 	JButton SeConnecter;
 	JTextField nomAdmin;
 	JPasswordField motDePasse;
