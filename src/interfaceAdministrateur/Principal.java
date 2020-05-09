@@ -1,40 +1,52 @@
-package Principale;
+package interfaceAdministrateur;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.io.IOException;
-import chedly.Gestion_Donnée;
-
-import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.io.File;
+import chedly.Gestion_Donnée;
+import java.awt.event.*;
 import java.time.LocalDate;
-
-//import java.util.Arrays;
-///import java.util.Vector;
 import java.util.*;
+import java.util.List;
 public class Principal {
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	 //Fenetre fen=new Fenetre();
+		
+		//FenetredAcceuil fen=new FenetredAcceuil();
+		
+	
      LogIn i=new LogIn ();
        
 	}
+	public static void messageErreur (String message)
+	{ JOptionPane d = new JOptionPane();
+	  d.showMessageDialog( new JFrame() , message,
+		        "Warning",JOptionPane.WARNING_MESSAGE);}
 
 }
-class Fenetre extends JFrame   
+//classe de la fenetre d'acceuil 
+class FenetredAcceuil extends JFrame   
 	{
 	  private JTabbedPane tabbedPane = new JTabbedPane();
+	  
 	  private Dimension closeButtonSize;
-	  private int tabCounter = 0;
+	  //un compteur pour le nombre des onglets a déja été ouverts et qui sont actuellemnt ouverts
+ 	  private int tabCounter = 0;
+	  //les 3 boutons permanants de la fenetre principale
 	  private JButton ajouter= new JButton("Ajouter");
 	  private JButton importer = new JButton("Importer");
 	  private JButton modifier = new JButton("Modifier");
-	public  Fenetre() {
+	  
+	public FenetredAcceuil() {
 		super();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	   this.setTitle("Interface Administrateur");
-	   //bouton d'ajout 
+	   //Ajouter le traitement qui va etre fait suite à l'action de l'administrateur sur le bouton d'ajout principale 
 		ajouter.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent e){
 		    	  ajouterOnglet("Ajouter des données");
@@ -42,45 +54,56 @@ class Fenetre extends JFrame
 		      }
 		 
 		    });
-		//bouton de modification
+		 //Ajouter le traitement qui va etre fait suite à l'action de l'administrateur sur le bouton de modification principale
 		modifier.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent e){
 		    	  ajouterr("Modifier des données");
 		 
 		      }
 		    });
-		//bouton d'importation
+		 //Ajouter le traitement qui va etre fait suite à l'action de l'administrateur sur le bouton d'importation principale
 		importer.addActionListener(new ActionListener(){
-		      public void actionPerformed(ActionEvent e){
-		    		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
-		    		int returnValue = jfc.showOpenDialog(null);
-		    		// int returnValue = jfc.showSaveDialog(null);
-
-		    		if (returnValue == JFileChooser.APPROVE_OPTION) {
-		    			File selectedFile = jfc.getSelectedFile();
-		    		//	System.out.println(selectedFile.getAbsolutePath());
-		    		//appel à la methode de la classe gestion des donnees qui prend le chemin du fichier et fait l'ajout des donnees contenu dans ce fichier
-		    	try
-		    			{Gestion_Donnée.ajoutdonnéeschemin(selectedFile.getAbsolutePath());}
-		      catch(IOException evt)
-		      {System.out.println(selectedFile.getAbsolutePath());}
+		      public void actionPerformed(ActionEvent e) {
+       		{	JFileChooser chooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());		 
+	            // Récuperer l'un entier qui prend la valeur 1 si l'action est de fermer la fenetre du filechooser et 0 si l'admin a choisie un fichier
+		   	int actionAdmin = chooser.showOpenDialog(null);
+		    	if (actionAdmin == JFileChooser.APPROVE_OPTION) {
+		    		//Imposer de choisir un fichier text uniquement en utilisant un filtre
+		    		
+			    		    System.out.println(actionAdmin);
+			    			File selectedFile = chooser.getSelectedFile();
+				    		
+				    			String ch=selectedFile.getAbsolutePath();
+				   		String	ch1=ch.replace("\\" ,"/" );
+				    		//	System.out.println(ch1);
+				    	//appel à la methode de la classe gestion des donnees qui prend le chemin du fichier importé et fait l'ajout des donnees contenu dans ce fichier
+				    	try
+				    		{
+				    			Gestion_Donnée.ajoutdonnéeschemin(ch1);}
+			            catch(IOException evt)
+				           {
+			            	//System.out.println("erreur");
+			            	evt.printStackTrace();
+			            	}
+		    			} }
 		    	
-		    	}
-		      }
+		      
 		 
-		    });
-		
+		    		} });
+	//ajouter et positionner les onglets au centre de la fenetre ,les boutons sur les bordures droite,gauche et bas de la fenetre 
 		this.add(tabbedPane, BorderLayout.CENTER);
 	   this.add(ajouter, BorderLayout.EAST);
 	   this.add(modifier, BorderLayout.WEST);
 	   this.add(importer, BorderLayout.SOUTH);
+	   //Ajouter l'option de l'arret de l'exécution du programme 
 	   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   //dimensionner la fenetre principale de l'administrateur
 	   this.setSize(new Dimension(600, 600));
 	   this.setVisible(true);
 	}
+	//Ajouter un onglet d'ajout de donnée
 	public void ajouterOnglet(String nomOnglet) {
-		    final FenetreAjouter contenuOnglet = new FenetreAjouter();
+		   final FenetreAjouter contenuOnglet = new FenetreAjouter();
 		   JPanel Onglet = new JPanel();
 		   Onglet.setOpaque(false);
 		    JLabel labelOnglet = new JLabel( nomOnglet);
@@ -105,16 +128,18 @@ class Fenetre extends JFrame
 		  }
 
   public void ajouterr(String nomOnglet) {
-	  LocalDate[] l=new LocalDate[19];                //pour tester il faut appeler la methode de gestion de donnee
-		 int j=0;                                           //pour tester
-		 for(int i=1;i<=12;i++)                           //pour tester
-		 { l[j]=LocalDate.of(2020+i,i,i);j++;}
-	  LocalDate[] TableauDesDates;
+	  //LocalDate[] l=new LocalDate[19];                //pour tester il faut appeler la methode de gestion de donnee
+		// int j=0;                                           //pour tester
+		// for(int i=1;i<=12;i++)                           //pour tester
+	//	 { l[j]=LocalDate.of(2020+i,i,i);j++;}
+	  LocalDate[] TableauDesDates=new LocalDate[100];
+	//  LocalDate[] TableauDesDates=Gestion_Donnée.datesdonnées();
 	  try 
-	  {TableauDesDates=Gestion_Donnée.datesdonnées();}
+	  { TableauDesDates=Gestion_Donnée.datesdonnées();}
 	  catch(IOException evt)
 	  {System.out.println("exception");}
-	  final FenetreModifier contenuOnglet = new FenetreModifier(l);
+	  
+	  final FenetreModifier contenuOnglet = new FenetreModifier(TableauDesDates);
 		   JPanel Onglet = new JPanel();
 		   Onglet.setOpaque(false);
 		    JLabel labelOnglet = new JLabel( nomOnglet);
@@ -137,24 +162,31 @@ class Fenetre extends JFrame
 		    
 }}
 class FenetreAjouter extends JPanel 
-{JButton bouton;
+{ private static  String [] regionsDejaAjouter=new String [24];
+   private static int nbrregionsDejaAjouter;
+	JButton bouton;
 JComboBox GouvernoratSaisie;
 TextField nombreDécésSaisie;
 TextField nombreInféctéSaisie;
 TextField nombreRetablisSaisie;
 String nomGouvernorat;
 int nombreDécés;
-int nombreInfécté;
+  int nombreInfécté;
 int nombreRetablis;
 public FenetreAjouter()
 {String[] regions= {"Ariana","Beja","BenArous","Bizerte","Gabes","Gafsa","Jendouba",
 		"Kairouan","Kasserine","Kebili","Kef","Mahdia","Manouba","Medenine",
 		"Monastir","Nabeul","Sfax","SidiBouzid","Siliana","Tataouine","Sousse","Tozeur","Tunis","Zaghouan"};
+    nbrregionsDejaAjouter=0;
 	bouton=new JButton("Valider");
+	
 	GouvernoratSaisie=new JComboBox(regions);
 	nombreDécésSaisie=new TextField();
+	nombreDécésSaisie.setPreferredSize(new Dimension(100,20));
 	nombreInféctéSaisie=new TextField();
+	nombreInféctéSaisie.setPreferredSize(new Dimension(100,20));
 	nombreRetablisSaisie=new TextField();
+	nombreRetablisSaisie.setPreferredSize(new Dimension(170,20));
 	
 	JLabel etiquette1=new JLabel("donner le nom du gouvernorat     ");
 	this.add(etiquette1);
@@ -169,24 +201,36 @@ public FenetreAjouter()
 	 this.add(etiquette4);
 	 this.add(nombreRetablisSaisie);
 	 this.add(bouton);
-	 reglageBoutonAvecText();
+	 
+	 reglageBoutonAvecText(regions);
 	
 }
-public void reglageBoutonAvecText()//throws MyException
+public void reglageBoutonAvecText(String[] regions)
 {      
 	  bouton.addActionListener(new ActionListener()
 		 {public void actionPerformed(ActionEvent evt) {
 		
 		 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
-		  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
+		 try
+		 {  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
 		 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
 		 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
-		 //Gestion_Donnée.remplirfichier( nomGouvernorat ,nombreInfécté , nombreDécés ,  nombreRetablis);
-		 
+		 if( Arrays.asList(regionsDejaAjouter).contains(nomGouvernorat))
+			Principal.messageErreur ("les informations d'aujourd'hui reliés à cette région sont déjà ajoutés auparavant");
+		 else
+		 { Gestion_Donnée.remplirfichier( nomGouvernorat ,nombreInfécté , nombreDécés ,  nombreRetablis);
+		 regionsDejaAjouter[nbrregionsDejaAjouter]=nomGouvernorat;
+		 nbrregionsDejaAjouter++;
+		 for(int i=0;i<24;i++)
+		 { if(regions[i]!=nomGouvernorat)
+				 Gestion_Donnée.remplirfichier( regions[i] ,0 , 0 , 0);}}}
+		 catch(NumberFormatException e)
+		 {Principal.messageErreur("Veuillez saisir que des chiffres");}
 		 }
 		 
 		 });
 	  
+	 
 	  //appel a la methode d'ajout de la classe gestion des donnees
 	}
 
@@ -203,7 +247,6 @@ class FenetreModifier extends JPanel{
 	int nombreDécés;
 	int nombreInfécté;
 	int nombreRetablis;
-	//JComboBox datesPossibles;
 	JComboBox jour;
 	 JComboBox mois;
 	 JComboBox annee;
@@ -214,8 +257,11 @@ class FenetreModifier extends JPanel{
 				bouton=new JButton("Valider");
 				GouvernoratSaisie=new JComboBox(regions);
 				nombreDécésSaisie=new TextField();
+				nombreDécésSaisie.setPreferredSize(new Dimension(100,20));
 				nombreInféctéSaisie=new TextField();
+				nombreInféctéSaisie.setPreferredSize(new Dimension(100,20));
 				nombreRetablisSaisie=new TextField();
+				nombreRetablisSaisie.setPreferredSize(new Dimension(100,20));
 				
 				JLabel etiquette1=new JLabel("donnez le nom du gouvernorat     ");
 				this.add(etiquette1);
@@ -260,39 +306,43 @@ public void reglage(LocalDate[] obj)
 {
 	bouton.addActionListener(new ActionListener()
 	 {public void actionPerformed(ActionEvent evt) {
-	if((nombreDécésSaisie.getText()!=null)&&(nombreInféctéSaisie.getText()!=null) &&(nombreRetablisSaisie.getText()!=null))
+	//if((nombreDécésSaisie.getText()!=null)&&(nombreInféctéSaisie.getText()!=null) &&(nombreRetablisSaisie.getText()!=null))
 	{ nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
-	  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
+	try
+	{  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
 	 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
-	 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
+	 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());}
+	catch(NumberFormatException e)
+	 {Principal.messageErreur("Veuillez saisir que des chiffres");}
+	 }
 	 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
 	 int j=Integer.parseInt(jour.getSelectedItem().toString());
 	 int m =Integer.parseInt(mois.getSelectedItem().toString());
 	 int a=Integer.parseInt(annee.getSelectedItem().toString());	
 	 if (estAvant(j,m,a,obj[0]))
 	 {	  String x=obj[0].toString();
-	  JOptionPane d = new JOptionPane();
-	  d.showMessageDialog( new JFrame() , "Date erronée! \n  veuiller choisir une date après:"+x,
-	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	       Principal.messageErreur("Date erronée! \n  veuiller choisir une date après:"+x);
+	  }
 	  else
 	  { if (estApres(j,m,a,obj[indice(obj)]))
 	  {	  String x=obj[indice(obj)].toString();
-	  JOptionPane d = new JOptionPane();
-	  d.showMessageDialog( new JFrame() , "Date erronée! \n  veuiller choisir une date avant:"+x,
-	        "Warning",JOptionPane.WARNING_MESSAGE);}
+	  Principal.messageErreur("Date erronée! \n  veuiller choisir une date avant:"+x);
+	  }
 	  else
-		  if (!estPresent(obj, LocalDate.of(a,m,j) ))
-		  {  JOptionPane d = new JOptionPane();
-	  d.showMessageDialog( new JFrame() , "Date introuvable",
-	        "Warning",JOptionPane.WARNING_MESSAGE);};
-	//	  else 
-	    /*   LocalDate date=LocalDate.of(a,m,j);
-	        Gestion_Donnée.modifierdonnées ( date , nombreInfécté , nombreDécés ,  nombreRetablis , nomGouvernorat);*/
+	  {  if (!estPresent(obj, LocalDate.of(a,m,j) ))
+		     Principal.messageErreur("Date introuvable");
+			 
+		  else 
+		  { LocalDate date=LocalDate.of(a,m,j);
+	       try
+	       { Gestion_Donnée.modifierdonnées ( date , nombreInfécté , nombreDécés ,  nombreRetablis , nomGouvernorat);}
+	       catch(IOException evt2)
+	       {System.out.print("exception1");}}}
 	  }}
 	//else
 		//throw new MyException();//; ex.messageErreur();}
 	
-	 }});}
+	 });}
 
 		
 
@@ -324,15 +374,4 @@ public static boolean estApres(int j,int m,int a,LocalDate obj)
 	return test;
 	}}
 
-class MyException extends Exception {
-	public MyException() {super();
-
-//public void messageErreur() {
-		JOptionPane d = new JOptionPane();
-		  d.showMessageDialog( new JFrame() , "Tous les champs doivent  être remplis !",
-		        "Warning",JOptionPane.WARNING_MESSAGE);
-	}
-}
-
-
-
+ 
