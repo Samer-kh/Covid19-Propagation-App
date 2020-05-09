@@ -158,12 +158,9 @@ public class Gestion_Donnée {
 		try 
 		{
 			String datech= format.format(date); // Date d'aujourd'hui en chaine de caractéres
-			if (Arrays.asList(Gestion_Donnée.datesdonnées(Ville)).contains(LocalDate.parse(datech))!=true)
-					{
 			FileWriter f = new FileWriter(chemin+"/villes/"+Ville+".txt" , true);
 			f.write(datech+" "+Integer.toString(cas)+" "+Integer.toString(deces)+" "+Integer.toString(gueris)+"\n"); // Ecriture dans le fichier selon le format utilisé
 			f.close();
-					}
 		
 		}
 		catch(IOException e)
