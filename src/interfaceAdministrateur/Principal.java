@@ -73,7 +73,17 @@ class FenetredAcceuil extends JFrame
 				    		
 				    			String ch=selectedFile.getAbsolutePath();
 				   		String	ch1=ch.replace("\\" ,"/" );
-				    		//	System.out.println(ch1);
+				   		String ch2 [] = ch1.split("/");
+						String interm= ch2[ch2.length-1];
+						String interm1 []= interm.split("\\.");
+						String datech= interm1[0];
+						if(!interm1[1].contentEquals("txt"))
+							Principal.messageErreur("veuillez saisir un fichier text");
+						else
+						{if(LocalDate.parse(interm1[0]).isBefore(LocalDate.of(2020,03, 02)))
+							Principal.messageErreur("Le fichier doit contenir des informations d'une date après le 02-03-2020");
+						else
+						{
 				    	//appel à la methode de la classe gestion des donnees qui prend le chemin du fichier importé et fait l'ajout des donnees contenu dans ce fichier
 				    	try
 				    		{
@@ -82,8 +92,8 @@ class FenetredAcceuil extends JFrame
 				           {
 			            	//System.out.println("erreur");
 			            	evt.printStackTrace();
-			            	}
-		    			} }
+			            	}}
+		    			}} }
 		    	
 		      
 		 
