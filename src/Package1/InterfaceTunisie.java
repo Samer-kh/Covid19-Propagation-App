@@ -10,22 +10,26 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
@@ -386,7 +390,7 @@ public void acceuil_Panel(JPanel Panel4,LocalDate date)
 
 {
 				Panel4.setLayout(new FlowLayout());
-				JLabel Titre = new JLabel("<html><font size='6' color=blue><br>La propagation  de la pandémie en Tunisie<br><br></html>",JLabel.CENTER);
+				JLabel Titre = new JLabel("<html><font size='6' color=blue><br>La Propagation  De La Pandémie En Tunisie<br><br></html>",JLabel.CENTER);
 				JLabel Description= new JLabel("<html><strong>Voici Notre Application Java, c'est une application qui vous permet de vous informer a propos <br> du propagation du covid,<br> elle détaille le nombre de cas , de personnes guéris <br>et de personnes déces en  affectant les cas selon les gouvernerats  <br>Elle vous permet aussi de connaitre de nombre de cas des jours précédents <br> Si vous avez des quetions n'hésitez pas à contacter le support <br> Stay Safe <br><br></strong></html>\r\n",JLabel.CENTER);
 				Description.setHorizontalAlignment(JLabel.CENTER);
 				Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
@@ -435,6 +439,7 @@ public void acceuil_Panel(JPanel Panel4,LocalDate date)
 public void creer_gouv(JPanel Panel,String nom,LocalDate date) 
 		{	
 			try {
+				JTabbedPane TabPane = new JTabbedPane();
 			GridLayout GP=new GridLayout(5,1);
 			if (date==null)
 			{
@@ -458,6 +463,8 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 			tab.setBackground(new Color(224,224,224));
 			tab.setFont(new Font("ComicSansMs",Font.BOLD,26));
 			selectd Calendrier = new selectd(nom,"maps//"+nom+".png",this);
+			
+			
 			
 			JLabel Ligne = new JLabel("<html><b>Choissir une date si vous voulez connaitre le nombre des cas :</b> </html> ",JLabel.CENTER);
 			Ligne.setFont(new Font("ComicSansMs",Font.BOLD,22));
@@ -1158,12 +1165,19 @@ Button24.addActionListener(ae ->
 			LocalDate Date=null;
 			Date=LocalDate.parse(resultat);
 			
-			LocalDate[] TabDate=Gestion_Donnée.datesdonnées();
-			if(verif(Date,TabDate))
+			
+			if(verif(Date))
+			{
 			Frame.dispose();
 			InterfaceTunisie tn=new InterfaceTunisie(Map,true,Gouv,Date);
 			tn.setExtendedState(tn.MAXIMIZED_BOTH);
 			tn.setVisible(true);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(Frame, "La date n'existe pas .");
+			
+			}
 		}
 		catch(Exception e)
 		{
@@ -1213,9 +1227,9 @@ Button24.addActionListener(ae ->
 			int NbGueris=tabDon[1]; 
 			int NbDeces=tabDon[2];
 			
-			LocalDate[] TabDate=Gestion_Donnée.datesdonnées();
 			
-			if (verif(Date,TabDate))
+			
+			if (verif(Date))
 			{
 			Frame.dispose();
 			InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true,NbCas,NbGueris,NbDeces,Date);
@@ -1241,19 +1255,19 @@ Button24.addActionListener(ae ->
 		this.add(afficher);
 		
 	}
-	public boolean verif(LocalDate d , LocalDate[] tab) // verifier si la date est dans le tableau ou non
-	{	int i=0;
-		do 
+	public boolean verif(LocalDate d) throws ParseException // verifier si la date est dans le tableau ou non
+	{	
+		Date DateC = new Date(System.currentTimeMillis()); 
+		String SDateC=DateC.toString();
+		LocalDate SDateLocS=LocalDate.parse(SDateC);
+	    LocalDate date1=LocalDate.parse("2020-03-02"); 
+	    
+		
+		if ((d. isBefore(date1))||(d.isAfter(SDateLocS)))
 		{
-			if(tab[i]!=d)
-				i++;
-			else 
-				break;
-		}
-		while(i<tab.length);
-		if(i<tab.length)
-			return true;
-		else 
 			return false;
+		}
+		else
+		{return true;}
 	}
 	}
