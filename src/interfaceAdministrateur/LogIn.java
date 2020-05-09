@@ -1,4 +1,4 @@
-package Principale;
+package interfaceAdministrateur;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -39,20 +39,18 @@ public class LogIn extends JFrame implements ActionListener {
 	    SeConnecter.addActionListener(this); 
 	    this.setContentPane(panel);
 	}
-	public void connexionValide() {Fenetre fen = new Fenetre();}
+	public void connexionValide() {FenetredAcceuil fen = new FenetredAcceuil();}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//if(nomAdmin.getSelectedText()!=" " &&  motDePasse.getSelectedText()!=" ")
 		 if(!nomAdmin.getText().equals(administrateur))
-		  { JOptionPane d = new JOptionPane();
-		  d.showMessageDialog( new JFrame() , "nom administrateur invalide",
-		        "Warning",JOptionPane.WARNING_MESSAGE);}
+		   Principal.messageErreur("nom administrateur invalide");
+			 
 	      else
 	    	  if(! motDePasse.getText().equals(adminPassword) )
-	    	  { JOptionPane d = new JOptionPane();
-			  d.showMessageDialog( new JFrame() , "Mot De Passe Invalide",
-			        "Warning",JOptionPane.WARNING_MESSAGE);}
+	    		  Principal.messageErreur("Mot De Passe Invalide");
+	    	 
 	    	  else 
 	    		  connexionValide();
 	}
