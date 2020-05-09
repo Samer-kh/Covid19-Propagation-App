@@ -202,10 +202,6 @@ public class Gestion_Donnée {
 		int[] resultat = {cas, gueris , deces};
 		return resultat;
 	}
-	public static void main(String[] args) throws IOException
-	{
-		Gestion_Donnée.ajoutdonnéeschemin("C:/Users/Chedly/Desktop/2020-05-08.txt");
-	}
 	public static LocalDate[] datesdonnées(String ville) throws IOException
 	{
 		String ligne;
