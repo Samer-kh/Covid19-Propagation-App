@@ -154,13 +154,17 @@ public class Gestion_Donnée {
 	{
 		DateFormat format = new SimpleDateFormat ("yyyy-MM-dd"); // Format de la date
 		Date date = new Date(); // Date actuelle
-		String chemin = System.getProperty("user.dir"); // Format du fichier
+		String chemin = System.getProperty("user.dir"); // Chemin du projet
 		try 
 		{
 			String datech= format.format(date); // Date d'aujourd'hui en chaine de caractéres
+			if (Arrays.asList(Gestion_Donnée.datesdonnées(Ville)).contains(LocalDate.parse(datech))!=true)
+					{
 			FileWriter f = new FileWriter(chemin+"/villes/"+Ville+".txt" , true);
 			f.write(datech+" "+Integer.toString(cas)+" "+Integer.toString(deces)+" "+Integer.toString(gueris)+"\n"); // Ecriture dans le fichier selon le format utilisé
 			f.close();
+					}
+		
 		}
 		catch(IOException e)
 		{
@@ -200,5 +204,36 @@ public class Gestion_Donnée {
 		}
 		int[] resultat = {cas, gueris , deces};
 		return resultat;
+	}
+	public static void main(String[] args) throws IOException
+	{
+		Gestion_Donnée.ajoutdonnéeschemin("C:/Users/Chedly/Desktop/2020-05-08.txt");
+	}
+	public static LocalDate[] datesdonnées(String ville) throws IOException
+	{
+		String ligne;
+		LocalDate date;
+		LocalDate [] tab = new LocalDate[100];
+		int i=0;
+		String chemin = System.getProperty("user.dir"); //Chemin du projet
+		BufferedReader in= new BufferedReader ( new FileReader (chemin+"/villes/"+ville+".txt")); //Lit les dates de la ville de Tunis (toutes les villes ont les même dates donc il suffit d'en prendre une seule
+		while ((ligne=in.readLine()) !=null)
+		{
+			String donnée[]=ligne.split(" "); //Divise la chaine puis prend le premier champ qui présente la date
+			date=LocalDate.parse(donnée[0]);
+			tab[i]=date; // Stocke les données dans un tableau
+			i++;
+		}
+		return tab; // Retourne le tableau
+	}
+	public static String derniéreligne (String ville) throws IOException
+	{
+		String ligne;
+		String cheminproj = System.getProperty("user.dir"); // Chemin du projet
+		BufferedReader in= new BufferedReader ( new FileReader (cheminproj+"/villes/"+ville+".txt"));
+		while ((ligne=in.readLine()) !=null)
+		{
+		}
+		return ligne;
 	}
 }
