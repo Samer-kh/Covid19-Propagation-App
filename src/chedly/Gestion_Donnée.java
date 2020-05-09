@@ -33,8 +33,6 @@ public class Gestion_Donnée {
 				gueris+=Integer.parseInt(donnée[2]);
 				deces+=Integer.parseInt(donnée[3]);
 			}
-			else
-				break;
 		}
 		in.close(); // Fermer le fichier
 		int[] resultat = {cas, gueris , deces}; // Tableau contenant le résultat final
