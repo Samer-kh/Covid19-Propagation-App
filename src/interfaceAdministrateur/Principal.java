@@ -11,29 +11,27 @@ import chedly.Gestion_Donnée;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.List;
+
 public class Principal {
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//FenetredAcceuil fen=new FenetredAcceuil();
-		
-	
-     LogIn i=new LogIn ();
-       
+		FenetredAcceuil fen=new FenetredAcceuil();	
+    // LogIn i=new LogIn ();       
 	}
+	
 	public static void messageErreur (String message)
 	{ JOptionPane d = new JOptionPane();
 	  d.showMessageDialog( new JFrame() , message,
 		        "Warning",JOptionPane.WARNING_MESSAGE);}
-
 }
-//classe de la fenetre d'acceuil 
+
+// la fenetre d'acceuil 
 class FenetredAcceuil extends JFrame   
 	{
 	  private JTabbedPane tabbedPane = new JTabbedPane();
-	  
+	  //les dimensions du bouton de fermeture des onglets
 	  private Dimension closeButtonSize;
 	  //un compteur pour le nombre des onglets a déja été ouverts et qui sont actuellemnt ouverts
  	  private int tabCounter = 0;
@@ -162,8 +160,7 @@ class FenetredAcceuil extends JFrame
 		    
 }}
 class FenetreAjouter extends JPanel 
-{ private static  String [] regionsDejaAjouter=new String [24];
-   private static int nbrregionsDejaAjouter;
+{ 
 	JButton bouton;
 JComboBox GouvernoratSaisie;
 TextField nombreDécésSaisie;
@@ -177,7 +174,7 @@ public FenetreAjouter()
 {String[] regions= {"Ariana","Beja","BenArous","Bizerte","Gabes","Gafsa","Jendouba",
 		"Kairouan","Kasserine","Kebili","Kef","Mahdia","Manouba","Medenine",
 		"Monastir","Nabeul","Sfax","SidiBouzid","Siliana","Tataouine","Sousse","Tozeur","Tunis","Zaghouan"};
-    nbrregionsDejaAjouter=0;
+  
 	bouton=new JButton("Valider");
 	
 	GouvernoratSaisie=new JComboBox(regions);
@@ -206,37 +203,42 @@ public FenetreAjouter()
 	
 }
 public void reglageBoutonAvecText(String[] regions)
-{      
-	  bouton.addActionListener(new ActionListener()
-		 {public void actionPerformed(ActionEvent evt) {
-		
-		 nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
-		 try
-		 {  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
-		 nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
-		 nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
-		 if( Arrays.asList(regionsDejaAjouter).contains(nomGouvernorat))
-			Principal.messageErreur ("les informations d'aujourd'hui reliés à cette région sont déjà ajoutés auparavant");
-		 else
-		 { Gestion_Donnée.remplirfichier( nomGouvernorat ,nombreInfécté , nombreDécés ,  nombreRetablis);
-		 regionsDejaAjouter[nbrregionsDejaAjouter]=nomGouvernorat;
-		 nbrregionsDejaAjouter++;
-		 for(int i=0;i<24;i++)
-		 { if(regions[i]!=nomGouvernorat)
-				 Gestion_Donnée.remplirfichier( regions[i] ,0 , 0 , 0);}}}
-		 catch(NumberFormatException e)
-		 {Principal.messageErreur("Veuillez saisir que des chiffres");}
-		 }
-		 
-		 });
-	  
-	 
-	  //appel a la methode d'ajout de la classe gestion des donnees
-	}
+{      bouton.addActionListener(new ActionListener()
+           {public void actionPerformed(ActionEvent evt) {
 
-	
+          nomGouvernorat=GouvernoratSaisie.getSelectedItem().toString();
+           try
+           {  nombreDécés=Integer.parseInt(nombreDécésSaisie.getText());
+             nombreInfécté=Integer.parseInt(nombreInféctéSaisie.getText());
+           nombreRetablis=Integer.parseInt(nombreRetablisSaisie.getText());
+             DateFormat format = new SimpleDateFormat ("yyyy-MM-dd"); // Format de la date
+	          Date date = new Date(); // Date actuelle
+	         String datech= format.format(date); // Date d'aujourd'hui en chaine de caractéres
+		String[] ch=Gestion_Donnée.derniéreligne( nomGouvernorat).split(" ");
+          if(!ch[0].equals(datech))
+          { Gestion_Donnée.remplirfichier( nomGouvernorat ,nombreInfécté , nombreDécés ,  nombreRetablis);
+            for(int i=0;i<24;i++)
+          { if(regions[i]!=nomGouvernorat)
+		 Gestion_Donnée.remplirfichier( regions[i] ,0 , 0 , 0);}}
+         else
+	       if((ch[1].equals("0"))&&(ch[2].equals("0"))&&(ch[3].equals("0")))
+	         	Gestion_Donnée.modifierdonnées(LocalDate.parse(ch[0]), nombreInfécté, nombreRetablis,nombreDécés, nomGouvernorat);
+	       else
+		Principal.messageErreur ("les informations d'aujourd'hui reliés à cette région sont déjà ajoutés auparavant");
 
+         }
+           catch(NumberFormatException e)
+          {Principal.messageErreur("Veuillez saisir que des chiffres");}
+
+        catch(IOException e)
+          {}
+
+        }
+//appel a la methode d'ajout de la classe gestion des donnees
+});
 }
+}
+
 class FenetreModifier extends JPanel{
 	JButton bouton;
 	JComboBox GouvernoratSaisie;
