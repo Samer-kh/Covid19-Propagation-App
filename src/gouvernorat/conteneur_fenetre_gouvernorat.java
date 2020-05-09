@@ -21,7 +21,7 @@ public class conteneur_fenetre_gouvernorat extends JPanel{
 		
 		this.setBackground(new Color(25,0,51));
 		String[] col_name= {"nombre total de cas confirmés","nombre total de cas guéris","nombre total des décès"};
-		Object[][] row= { {" cas confirmés"," cas guéris","  décès"},Gestion_Donnée.lecturedonnées(nom)};
+		Object[][] row= { {" cas confirmés"," cas guéris","  décès"}};
 		tab=new JTable(row,col_name);
 		this.add(tab);
 		

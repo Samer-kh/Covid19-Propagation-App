@@ -14,8 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import javax.imageio.ImageIO;
@@ -24,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -1148,7 +1147,7 @@ Button24.addActionListener(ae ->
 		afficher=new JButton("afficher");
 		afficher.setBounds(400, 20, 70, 35);
 		afficher.addActionListener(ae->
-		{	
+		{	try {
 			String ans=annee.getSelectedItem().toString();
 			
 			String mois=mars.getSelectedItem().toString();
@@ -1158,11 +1157,18 @@ Button24.addActionListener(ae ->
 			String resultat=String.join("-",TabInter);
 			LocalDate Date=null;
 			Date=LocalDate.parse(resultat);
+			
+			LocalDate[] TabDate=Gestion_Donnée.datesdonnées();
+			if(verif(Date,TabDate))
 			Frame.dispose();
 			InterfaceTunisie tn=new InterfaceTunisie(Map,true,Gouv,Date);
 			tn.setExtendedState(tn.MAXIMIZED_BOTH);
 			tn.setVisible(true);
-			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 			
 
 			
@@ -1207,13 +1213,24 @@ Button24.addActionListener(ae ->
 			int NbGueris=tabDon[1]; 
 			int NbDeces=tabDon[2];
 			
+			LocalDate[] TabDate=Gestion_Donnée.datesdonnées();
+			
+			if (verif(Date,TabDate))
+			{
 			Frame.dispose();
 			InterfaceTunisie tn=new InterfaceTunisie("maps\\tunisie.png",true,NbCas,NbGueris,NbDeces,Date);
 			tn.setExtendedState(tn.MAXIMIZED_BOTH);
 			tn.setVisible(true);
 			}
+			else 
+			{
+				JOptionPane.showMessageDialog(Frame, "La date n'existe pas .");
+			}
+			}
 			catch(Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 			
 
 			
@@ -1223,5 +1240,20 @@ Button24.addActionListener(ae ->
 		
 		this.add(afficher);
 		
+	}
+	public boolean verif(LocalDate d , LocalDate[] tab) // verifier si la date est dans le tableau ou non
+	{	int i=0;
+		do 
+		{
+			if(tab[i]!=d)
+				i++;
+			else 
+				break;
+		}
+		while(i<tab.length);
+		if(i<tab.length)
+			return true;
+		else 
+			return false;
 	}
 	}

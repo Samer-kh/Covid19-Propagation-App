@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class fenetre_gouvernorat extends JFrame {
+	public static void main(String[] args)
+	{
+		fenetre_gouvernorat f=new fenetre_gouvernorat("samer");
+	}
 		public conteneur_fenetre_gouvernorat conteneur;
 		
 		public fenetre_gouvernorat(String nom)
