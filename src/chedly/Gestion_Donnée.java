@@ -222,11 +222,14 @@ public class Gestion_Donnée {
 	public static String derniéreligne (String ville) throws IOException
 	{
 		String ligne;
+		String ch="";
 		String cheminproj = System.getProperty("user.dir"); // Chemin du projet
 		BufferedReader in= new BufferedReader ( new FileReader (cheminproj+"/villes/"+ville+".txt"));
 		while ((ligne=in.readLine()) !=null)
 		{
+			if (!ligne.equals(""))
+			ch=ligne;
 		}
-		return ligne;
+		return ch;
 	}
 }
