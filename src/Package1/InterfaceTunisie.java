@@ -445,7 +445,7 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 			{
 			int tableauD[]=Gestion_Donnée.lecturedonnées(nom);
 			int nbCasG=tableauD[0];
-			int nbGuerisG=tableauD[0];
+			int nbGuerisG=tableauD[1];
 			int nbDecesG=tableauD[2];
 			
 			
