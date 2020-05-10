@@ -22,7 +22,8 @@ public class LogIn extends JFrame implements ActionListener {
 		this.setVisible(true);
 	    this.setResizable(true);  
 	    this.setTitle("Se connecter"); 
-	    JPanel panel=new JPanel();    
+	    JPanel panel=new JPanel();  
+	    panel.setBackground(new Color(236, 228, 219));
 	    JLabel userName = new JLabel("Nom de l'administrateur :");
 	    JLabel password = new JLabel("Mot De Passe :");
 	   /* nomAdmin.setBounds(150,80,50,100);

@@ -18,7 +18,7 @@ public class Principal {
 		// TODO Auto-generated method stub
 		
 		FenetredAcceuil fen=new FenetredAcceuil();	
-    // LogIn i=new LogIn ();       
+ // LogIn i=new LogIn ();       
 	}
 	
 	public static void messageErreur (String message)
@@ -112,9 +112,10 @@ class FenetredAcceuil extends JFrame
 	//Ajouter un onglet d'ajout de donnée
 	public void ajouterOnglet(String nomOnglet) {
 		   final FenetreAjouter contenuOnglet = new FenetreAjouter();
-		   JPanel Onglet = new JPanel();
+		   
+		   JPanel Onglet = new JPanel();	
 		   Onglet.setOpaque(false);
-		    JLabel labelOnglet = new JLabel( nomOnglet);
+		    JLabel labelOnglet = new JLabel( nomOnglet);		  
 		    JButton boutonFermer = new JButton("x");
 		    boutonFermer.setPreferredSize(closeButtonSize);
 		    boutonFermer.addActionListener(new ActionListener() {
@@ -149,6 +150,7 @@ class FenetredAcceuil extends JFrame
 	  
 	  final FenetreModifier contenuOnglet = new FenetreModifier(TableauDesDates);
 		   JPanel Onglet = new JPanel();
+		  
 		   Onglet.setOpaque(false);
 		    JLabel labelOnglet = new JLabel( nomOnglet);
 		    JButton boutonFermer = new JButton("x");
@@ -184,7 +186,7 @@ public FenetreAjouter()
 {String[] regions= {"Ariana","Beja","BenArous","Bizerte","Gabes","Gafsa","Jendouba",
 		"Kairouan","Kasserine","Kebili","Kef","Mahdia","Manouba","Medenine",
 		"Monastir","Nabeul","Sfax","SidiBouzid","Siliana","Tataouine","Sousse","Tozeur","Tunis","Zaghouan"};
-  
+      this.setBackground(new Color(231, 228, 220));
 	bouton=new JButton("Valider");
 	
 	GouvernoratSaisie=new JComboBox(regions);
@@ -263,6 +265,7 @@ class FenetreModifier extends JPanel{
 	 JComboBox mois;
 	 JComboBox annee;
 	 public FenetreModifier(LocalDate[] obj ) {
+		 this.setBackground(new Color(226, 227, 220));
 		 String[] regions= {"Ariana","Beja","Ben Arous","Bizerte","Gabes","Gafsa","Jendouba","Kairouan","Kasserine","Kebili",
 					"Kef","Mahdia","Manouba","Medenine","Monastir","Nabeul","Sfax","SidiBouzid","Siliana"
 					,"Sousse","Tataouine","Tozeur","Tunis","Zagouan"};
@@ -333,12 +336,12 @@ public void reglage(LocalDate[] obj)
 	 int a=Integer.parseInt(annee.getSelectedItem().toString());	
 	 if (estAvant(j,m,a,obj[0]))
 	 {	  String x=obj[0].toString();
-	       Principal.messageErreur("Date erronée! \n  veuiller choisir une date après:"+x);
+	       Principal.messageErreur("Date erronée! \n  veuiller choisir une date après la date du début de la pandémie suivante :"+x);
 	  }
 	  else
 	  { if (estApres(j,m,a,obj[indice(obj)]))
 	  {	  String x=obj[indice(obj)].toString();
-	  Principal.messageErreur("Date erronée! \n  veuiller choisir une date avant:"+x);
+	  Principal.messageErreur("Date erronée! \n  veuiller choisir une date avant la derniére date enregistrée suivante:"+x);
 	  }
 	  else
 	  {  if (!estPresent(obj, LocalDate.of(a,m,j) ))
