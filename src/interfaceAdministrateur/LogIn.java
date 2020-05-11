@@ -26,6 +26,11 @@ public class LogIn extends JFrame implements ActionListener {
 	    panel.setBackground(new Color(236, 228, 219));
 	    JLabel userName = new JLabel("Nom de l'administrateur :");
 	    JLabel password = new JLabel("Mot De Passe :");
+	   /* nomAdmin.setBounds(150,80,50,100);
+	    userName.setBounds(20,80,50,50);
+	    password.setBounds(20,100,50,50);
+	    motDePasse.setBounds(150,100,50,50);
+	    SeConnecter.setBounds(180,180,50,50);*/
 	    panel.add(userName);
 	    panel.add(nomAdmin);
 	    panel.add(password);
@@ -35,15 +40,14 @@ public class LogIn extends JFrame implements ActionListener {
 	    SeConnecter.addActionListener(this); 
 	    this.setContentPane(panel);
 	}
-	
-	public void connexionValide() 
-	{FenetredAcceuil fen = new FenetredAcceuil();
-	}
+	public void connexionValide() {FenetredAcceuil fen = new FenetredAcceuil();}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		//if(nomAdmin.getSelectedText()!=" " &&  motDePasse.getSelectedText()!=" ")
 		 if(!nomAdmin.getText().equals(administrateur))
-		   Principal.messageErreur("nom administrateur invalide");			 
+		   Principal.messageErreur("nom administrateur invalide");
+			 
 	      else
 	    	  if(! motDePasse.getText().equals(adminPassword) )
 	    		  Principal.messageErreur("Mot De Passe Invalide");

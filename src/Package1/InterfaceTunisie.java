@@ -390,7 +390,7 @@ public void acceuil_Panel(JPanel Panel4,LocalDate date)
 
 {
 				Panel4.setLayout(new FlowLayout());
-				JLabel Titre = new JLabel("<html><font size='6' color=blue><br>La Propagation  De La Pandémie En Tunisie<br><br></html>",JLabel.CENTER);
+				JLabel Titre = new JLabel("<html><font size='6' color=blue><br>La Propagation  De La Pandémie Covid-19 En Tunisie<br><br></html>",JLabel.CENTER);
 				JLabel Description= new JLabel("<html><strong>Voici Notre Application Java, c'est une application qui vous permet de vous informer a propos <br> du propagation du covid,<br> elle détaille le nombre de cas , de personnes guéris <br>et de personnes déces en  affectant les cas selon les gouvernerats  <br>Elle vous permet aussi de connaitre de nombre de cas des jours précédents <br> Si vous avez des quetions n'hésitez pas à contacter le support <br> Stay Safe <br><br></strong></html>\r\n",JLabel.CENTER);
 				Description.setHorizontalAlignment(JLabel.CENTER);
 				Titre.setFont(new Font("ComicSansMs",Font.BOLD,25));
@@ -1093,7 +1093,7 @@ Button21.addActionListener(ae ->
 
 Button22.addActionListener(ae -> 
 {	this.dispose();
-    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png",true,"Tataouin",null);
+    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png",true,"Tataouine",null);
 	Tn.setVisible(true);
 	Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 	
@@ -1125,7 +1125,7 @@ Button24.addActionListener(ae ->
 }
 
 	
- class selectd extends JPanel implements ActionListener{
+ class selectd extends JPanel {
 	
 	public JComboBox<String> mars;//liste de selection des mois 
 	public JComboBox<Integer> jours;//liste de selection des jours 
