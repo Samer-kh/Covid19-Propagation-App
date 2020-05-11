@@ -68,7 +68,9 @@ class FenetredAcceuil extends JFrame
 	         /* Récuperer l'entier qui prend la valeur 1 si l'action est de fermer la fenetre du filechooser
 	        *  et 0 si l'admin a choisie un fichier et permet d'imposer que le JFilechooser support que l'opération d'ouverture d'un fichier*/	            
 		   	int actionAdmin = chooser.showOpenDialog(null);
-		   	if (actionAdmin == JFileChooser.APPROVE_OPTION) {
+		   	try
+		   	{if (actionAdmin == JFileChooser.APPROVE_OPTION) 
+		   	{
 		   		           //récupérer le fichier choisi par l'admin
 			    			File fichierChoisi = chooser.getSelectedFile();	
 			    			//extraire le chemin de ce fichier
@@ -85,18 +87,22 @@ class FenetredAcceuil extends JFrame
 						{if(LocalDate.parse(nomFichier).isBefore(LocalDate.of(2020,03, 02)))
 							Principal.messageErreur("Le fichier doit contenir des informations d'une date après le 02-03-2020");
 						else
-						{
+						{if(LocalDate.parse(nomFichier).isBefore(LocalDate.parse(Gestion_Donnée.derniéreligne("Ariana").split(" ")[0])))
+						{String derniereDate=Gestion_Donnée.derniéreligne("Ariana").split(" ")[0];
+						Principal.messageErreur("Le fichier doit contenir des informations d'une date après le "+derniereDate);
+						}
+						else
+						
 				    	/*appel à la methode de la classe gestion des donnees qui prend le chemin du fichier importé et fait
 							l'ajout des donnees contenu dans ce fichier aux différentes fichiers des gouvernorats*/
-				    	try
-				    		{
+				    				
 				    		Gestion_Donnée.ajoutdonnéeschemin(ch1);
-				    		}
+						}}}}
 			            catch(IOException evt)
 				           {			            
 			            	evt.printStackTrace();
-			            	}}
-		    			}} }} });
+			            	}
+		    			 }} });
 	//ajouter et positionner les onglets au centre de la fenetre ,les boutons sur les bordures droite,gauche et bas de la fenetre 
 		this.add(tabbedPane, BorderLayout.CENTER);
 	   this.add(ajouter, BorderLayout.EAST);
