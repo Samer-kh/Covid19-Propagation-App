@@ -87,7 +87,7 @@ class FenetredAcceuil extends JFrame
 						{if(LocalDate.parse(nomFichier).isBefore(LocalDate.of(2020,03, 02)))
 							Principal.messageErreur("Le fichier doit contenir des informations d'une date après le 02-03-2020");
 						else
-						{if(LocalDate.parse(nomFichier).isBefore(LocalDate.parse(Gestion_Donnée.derniéreligne("Ariana").split(" ")[0])))
+						{if(LocalDate.parse(nomFichier).isBefore(LocalDate.parse(Gestion_Donnée.derniéreligne("Ariana").split(" ")[0]))||(nomFichier.equals(Gestion_Donnée.derniéreligne("Ariana").split(" ")[0])))
 						{String derniereDate=Gestion_Donnée.derniéreligne("Ariana").split(" ")[0];
 						Principal.messageErreur("Le fichier doit contenir des informations d'une date après le "+derniereDate);
 						}
