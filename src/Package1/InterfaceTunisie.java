@@ -445,7 +445,7 @@ public void creer_gouv(JPanel Panel,String nom,LocalDate date)
 			{
 			int tableauD[]=Gestion_Donnée.lecturedonnées(nom);
 			int nbCasG=tableauD[0];
-			int nbGuerisG=tableauD[0];
+			int nbGuerisG=tableauD[1];
 			int nbDecesG=tableauD[2];
 			
 			
@@ -1093,7 +1093,7 @@ Button21.addActionListener(ae ->
 
 Button22.addActionListener(ae -> 
 {	this.dispose();
-    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png",true,"Tataouin",null);
+    InterfaceTunisie Tn=new InterfaceTunisie("maps\\tataouine.png",true,"Tataouine",null);
 	Tn.setVisible(true);
 	Tn.setExtendedState(Tn.MAXIMIZED_BOTH);
 	
