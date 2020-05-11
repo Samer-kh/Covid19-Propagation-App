@@ -17,6 +17,7 @@ public class LogIn extends JFrame implements ActionListener {
     motDePasse=new JPasswordField();
     motDePasse.setPreferredSize(new Dimension(200,20));
     SeConnecter=new JButton("Se connecter");
+        this.setLocation(500,200);
 		this.setSize(400,200);
 		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

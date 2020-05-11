@@ -41,6 +41,7 @@ class FenetredAcceuil extends JFrame
 	  
 	public FenetredAcceuil() {
 		super();
+		this.setLocation(350, 50);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//le titre de la fenetre d'acceuil
 	   this.setTitle("Interface Administrateur");
